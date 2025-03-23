@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import Layout from './_app/layout/layout';
+import '@ant-design/v5-patch-for-react-19';
+// import Layout from './_app/layout/layout';
+import Header from '@/widgets/header';
+import Footer from '@/widgets/footer';
+
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,7 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <link rel="icon" href="/sun-svgrepo-com.svg" sizes="any" />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Layout>{children}</Layout>
+        <Header />
+        <main className="main-container">{children}</main>
+        <Footer />
       </body>
     </html>
   );

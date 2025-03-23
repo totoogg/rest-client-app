@@ -8,13 +8,15 @@ const Header = () => {
   return (
     <header>
       <h1>Header</h1>
-      <Logo />
+      <Link href="/">
+        <Logo />
+      </Link>
       <LangToggle />
       <Link href="/auth/sign-in">
         <NavLink text="Sign In" />
       </Link>
       <Link href="/auth/sign-up">
-        <NavLink text="Sign Un" />
+        <NavLink text="Sign Up" />
       </Link>
     </header>
   );
