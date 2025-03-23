@@ -10,10 +10,10 @@ const Header = () => {
       <h1>Header</h1>
       <Logo />
       <LangToggle />
-      <Link href="auth/sign-in">
+      <Link href="/auth/sign-in">
         <NavLink text="Sign In" />
       </Link>
-      <Link href="auth/sign-un">
+      <Link href="/auth/sign-up">
         <NavLink text="Sign Un" />
       </Link>
     </header>

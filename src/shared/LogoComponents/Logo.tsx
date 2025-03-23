@@ -1,5 +1,5 @@
 import LogoTemplate from '../ui/LogoTemplate';
-import FireSvg from '../../../assets/logo.svg';
+import FireSvg from '@/assets/logo.svg';
 
 const MainLogo = () => {
   return (

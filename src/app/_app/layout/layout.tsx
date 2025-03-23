@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
-import Header from '@/app/widgets/header';
-import Footer from '@/app/widgets/footer';
+import Header from '@/widgets/header';
+import Footer from '@/widgets/footer';
 import MainLayout from './mainLayout';
 
 interface ChildrenProps {

@@ -1,5 +1,5 @@
 import LogoTemplate from '../ui/LogoTemplate';
-import RsslogoSvg from '../../../assets/rss-logo.svg';
+import RsslogoSvg from '@/assets/rss-logo.svg';
 
 const CourseLogo = () => {
   return (
