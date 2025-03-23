@@ -1,10 +1,10 @@
-import LangToggle from '../shared/LangToggle/LangToggle';
+import LangToggle from '../../../shared/LangToggle/LangToggle';
 // import Logo from '../shared/Logo/logo';
-import Logo from '../shared/LogoComponents/Logo';
-import NavLink from '../shared/ui/NavLink';
+import Logo from '../../../shared/LogoComponents/Logo';
+import NavLink from '../../../shared/ui/NavLink';
 import Link from 'next/link';
 
-const Header = () => {
+export const Header = () => {
   return (
     <header>
       <h1>Header</h1>
@@ -22,4 +22,5 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.displayName = 'Header';
+// export default Header;

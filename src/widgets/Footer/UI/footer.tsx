@@ -1,7 +1,8 @@
-import CourseLogo from '../shared/LogoComponents/CourseLogo';
-import TeamFooter from './teamFooter';
+import CourseLogo from '../../../shared/LogoComponents/CourseLogo';
+import TeamFooter from '../../../entities/team/teamFooter';
 const linkToCourse = 'https://rs.school/courses/reactjs';
-const Footer = () => {
+
+export const Footer = () => {
   return (
     <footer>
       <h1>Footer</h1>
@@ -15,4 +16,5 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+Footer.displayName = 'Footer';
+// export default Footer;

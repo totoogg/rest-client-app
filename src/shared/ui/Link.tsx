@@ -10,7 +10,15 @@ type LinkProps = {
 const MyLink = ({ href, text }: LinkProps) => {
   return (
     <>
-      <Link href={href} target="_blank" className="custom-link">
+      <Link
+        href={href}
+        target="_blank"
+        className="custom-link"
+        style={{
+          color: '#f940ff',
+          padding: '8px 12px',
+        }}
+      >
         {text}
       </Link>
     </>

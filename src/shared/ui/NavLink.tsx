@@ -5,7 +5,7 @@ type NavLinkProps = {
 };
 const NavLink = ({ text }: NavLinkProps) => {
   return (
-    <Button color="default" variant="filled">
+    <Button color="purple" variant="filled" value="large">
       {text}
     </Button>
   );
