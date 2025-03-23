@@ -22,6 +22,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100svh;
 }
 
 * {
@@ -39,4 +43,39 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+header, footer {
+  background-color: rgba(9, 157, 9, 0.441);
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main {
+  background-color: rgba(26, 26, 248, 0.175);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid maroon;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(115, 0, 255);
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 200ms linear, color 200ms linear;
+}
+
+.nav-link:hover {
+  background-color: rgb(240, 198, 198);
+  color: yellow;
 }
