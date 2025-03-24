@@ -1,7 +1,6 @@
-import LangToggle from '../../../shared/LangToggle/LangToggle';
-// import Logo from '../shared/Logo/logo';
-import Logo from '../../../shared/LogoComponents/Logo';
-import NavLink from '../../../shared/ui/NavLink';
+import { LangToggle } from '@/shared/LangToggle/index';
+import { MainLogo } from '@/shared/Logo/index';
+import { NavLink } from '@/shared/Link/index';
 import Link from 'next/link';
 
 export const Header = () => {
@@ -9,7 +8,7 @@ export const Header = () => {
     <header>
       <h1>Header</h1>
       <Link href="/">
-        <Logo />
+        <MainLogo />
       </Link>
       <LangToggle />
       <Link href="/auth/sign-in">
@@ -23,4 +22,3 @@ export const Header = () => {
 };
 
 Header.displayName = 'Header';
-// export default Header;

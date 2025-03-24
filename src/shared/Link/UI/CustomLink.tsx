@@ -1,13 +1,9 @@
 'use client';
 import { Typography } from 'antd';
+import { CustomLinkProps } from '../model/types';
 const { Link } = Typography;
 
-type LinkProps = {
-  href: string;
-  text: string;
-};
-
-const MyLink = ({ href, text }: LinkProps) => {
+export const CustomLink = ({ href, text }: CustomLinkProps) => {
   return (
     <>
       <Link
@@ -24,5 +20,3 @@ const MyLink = ({ href, text }: LinkProps) => {
     </>
   );
 };
-
-export default MyLink;

@@ -6,7 +6,7 @@ const handleChange = (value: string) => {
   console.log(`selected ${value}`);
 };
 
-const LangToggle: FC = () => {
+export const LangToggle: FC = () => {
   return (
     <Select
       style={{ width: 120 }}
@@ -19,5 +19,3 @@ const LangToggle: FC = () => {
     />
   );
 };
-
-export default LangToggle;
