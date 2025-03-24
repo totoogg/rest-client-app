@@ -5,6 +5,7 @@ import '@ant-design/v5-patch-for-react-19';
 // import Header from '@/widgets/Header/UI/header';
 import { Footer, Header } from '@/widgets';
 import { ReactNode } from 'react';
+// import '../i18n/i18n';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

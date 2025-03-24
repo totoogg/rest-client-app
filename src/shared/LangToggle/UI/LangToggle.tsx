@@ -1,20 +1,25 @@
 'use client';
 import { Select } from 'antd';
 import { FC } from 'react';
-
-const handleChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
+import { useTranslation } from 'react-i18next';
 
 export const LangToggle: FC = () => {
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (lang: 'en' | 'ru') => {
+    i18n.changeLanguage(lang);
+  };
+
+  const currentLanguage = i18n.language as 'en' | 'ru';
+
   return (
     <Select
       style={{ width: 120 }}
-      defaultValue="en"
-      onChange={handleChange}
+      value={currentLanguage}
+      onChange={changeLanguage}
       options={[
         { value: 'en', label: <span>English</span> },
-        { value: 'ru', label: <span>Russian </span> },
+        { value: 'ru', label: <span>Русский</span> },
       ]}
     />
   );

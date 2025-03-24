@@ -1,0 +1,11 @@
+{
+  "page": {
+    "header": "Header",
+    "footer": "Footer"
+  },
+  "navLink": {
+    "signIn": "Sign-In",
+    "signUp": "Sign-Up",
+    "sighOut": "Sign-Out"
+  }
+}
