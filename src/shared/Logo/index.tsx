@@ -1,4 +1,4 @@
-import LogoTemplate from './UI/LogoTemplate';
+import LogoTemplate from './ui/LogoTemplate';
 import FireSvg from '@/assets/logo.svg';
 import RsslogoSvg from '@/assets/rss-logo.svg';
 

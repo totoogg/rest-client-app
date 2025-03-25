@@ -1,10 +1,10 @@
 'use client';
-import { LangToggle } from '@/shared/LangToggle/index';
-import { MainLogo } from '@/shared/Logo/index';
-import { NavLink } from '@/shared/Link/index';
+import '@/i18n/i18n';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import '@/i18n/i18n';
+import { LanguageSelect } from '@/shared/LanguageSelect';
+import { MainLogo } from '@/shared/Logo';
+import { NavLink } from '@/shared/Link';
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ export const Header = () => {
       <Link href="/">
         <MainLogo />
       </Link>
-      <LangToggle />
+      <LanguageSelect />
       <Link href="/auth/sign-in">
         <NavLink text={t('navLink.signIn')} />
       </Link>

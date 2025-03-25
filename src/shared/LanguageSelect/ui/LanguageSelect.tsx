@@ -3,7 +3,7 @@ import { Select } from 'antd';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const LangToggle: FC = () => {
+export const LanguageSelect: FC = () => {
   const { i18n } = useTranslation();
 
   const changeLanguage = (lang: 'en' | 'ru') => {

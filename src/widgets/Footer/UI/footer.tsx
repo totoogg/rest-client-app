@@ -1,9 +1,9 @@
 'use client';
-import { CourseLogo } from '@/shared/Logo';
-import { FooterTeamBlock } from '@/entities/team';
-import { linkToCourse } from '../Consts/dataForFooter';
-import { useTranslation } from 'react-i18next';
 import '@/i18n/i18n';
+import { CourseLogo } from '@/shared/Logo';
+import { FooterTeamBlock } from '@/entities/Team';
+import { linkToCourse } from '../consts/dataForFooter';
+import { useTranslation } from 'react-i18next';
 
 export const Footer = () => {
   const { t } = useTranslation();
