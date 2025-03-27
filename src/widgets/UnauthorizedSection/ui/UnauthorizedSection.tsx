@@ -1,9 +1,9 @@
 import { NavLink } from '@/shared/Link';
-import {useTranslations} from 'next-intl';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 export const UnauthorizedSection = () => {
-  const  t  = useTranslations();
+  const t = useTranslations();
   return (
     <>
       <h2>{t('homePage.startMessage')}</h2>

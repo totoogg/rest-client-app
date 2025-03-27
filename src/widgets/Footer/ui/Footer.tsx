@@ -1,6 +1,6 @@
 import { CourseLogo } from '@/shared/Logo';
-import { FooterTeamBlock } from '@/entities/Team';
-import { linkToCourse } from '../consts/dataForFooter';
+import { FooterTeamBlock } from '@/entities/team';
+import { linkToCourse } from '@/widgets/Footer/consts/dataForFooter';
 
 export const Footer = () => {
   return (
