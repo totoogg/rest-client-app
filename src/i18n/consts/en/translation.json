@@ -1,0 +1,15 @@
+{
+  "homePage": {
+    "title": "Home Page",
+    "startMessage": "Welcome",
+    "startMessageUser": "Welcome Back"
+  },
+  "navLink": {
+    "signIn": "Sign-In",
+    "signUp": "Sign-Up",
+    "sighOut": "Sign-Out",
+    "restClient": "REST Client",
+    "history": "History",
+    "variables": "Variables"
+  }
+}

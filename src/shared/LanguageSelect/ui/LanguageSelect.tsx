@@ -1,21 +1,22 @@
 'use client';
+
 import { Select } from 'antd';
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useRouter, usePathname } from 'next/navigation';
+import type { LanguageSelectProps } from '@/i18n/model/types';
 
-export const LanguageSelect: FC = () => {
-  const { i18n } = useTranslation();
+export const LanguageSelect = ({ locale }: LanguageSelectProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const changeLanguage = (lang: 'en' | 'ru') => {
-    i18n.changeLanguage(lang);
+  const changeLanguage = (newLang: 'en' | 'ru') => {
+    const pathWithoutLang = pathname.slice(3);
+    router.push(`/${newLang}${pathWithoutLang}`);
   };
-
-  const currentLanguage = i18n.language as 'en' | 'ru';
 
   return (
     <Select
       style={{ width: 120 }}
-      value={currentLanguage}
+      value={locale}
       onChange={changeLanguage}
       options={[
         { value: 'en', label: <span>English</span> },

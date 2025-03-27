@@ -1,2 +1,2 @@
-export { CustomLink } from './UI/CustomLink';
-export { NavLink } from './UI/NavLink';
+export { CustomLink } from './ui/CustomLink';
+export { NavLink } from './ui/NavLink';

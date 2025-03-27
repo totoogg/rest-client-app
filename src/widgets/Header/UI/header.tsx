@@ -1,26 +1,34 @@
-'use client';
-import '@/i18n/i18n';
-import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import {Link} from '@/i18n/navigation';
 import { LanguageSelect } from '@/shared/LanguageSelect';
 import { MainLogo } from '@/shared/Logo';
+import { LanguageSelectProps } from '@/i18n/model/types';
 import { NavLink } from '@/shared/Link';
+import { useTranslations } from 'next-intl';
 
-export const Header = () => {
-  const { t } = useTranslation();
+const authentication: boolean = false;
+
+export const Header = ({ locale }:  LanguageSelectProps ) => {
+  const t = useTranslations();
   return (
     <header>
-      <h1>{t('page.header')}</h1>
       <Link href="/">
         <MainLogo />
       </Link>
-      <LanguageSelect />
-      <Link href="/auth/sign-in">
-        <NavLink text={t('navLink.signIn')} />
-      </Link>
-      <Link href="/auth/sign-up">
-        <NavLink text={t('navLink.signUp')} />
-      </Link>
+      <LanguageSelect locale={locale}/>
+      {authentication ? (
+        <Link href="/auth/sign-out">
+          <NavLink text={t('navLink.sighOut')} />
+        </Link>
+      ) : (
+        <>
+          <Link href="/auth/sign-in">
+            <NavLink text={t('navLink.signIn')} />
+          </Link>
+          <Link href="/auth/sign-up">
+            <NavLink text={t('navLink.signUp')} />
+          </Link>
+        </>
+      )}
     </header>
   );
 };

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { CustomLink } from '@/shared/Link/index';
+import { CustomLink } from '@/shared/Link';
 import { DataTeamProps } from '../model/typeDataTeam';
 
 const TeamBlockFooter: FC<DataTeamProps> = ({ dataTeam }) => {

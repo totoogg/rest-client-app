@@ -1,0 +1,15 @@
+{
+  "homePage": {
+    "title": "Главная страница",
+    "startMessage": "Приветствуем",
+    "startMessageUser": "С Возвращением"
+  },
+  "navLink": {
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "sighOut": "Выход",
+    "restClient": "REST Клиент",
+    "history": "История",
+    "variables": "Переменные"
+  }
+}
