@@ -1,4 +1,4 @@
-import {Link} from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
 import { LanguageSelect } from '@/shared/LanguageSelect';
 import { MainLogo } from '@/shared/Logo';
 import { LanguageSelectProps } from '@/i18n/model/types';
@@ -7,14 +7,14 @@ import { useTranslations } from 'next-intl';
 
 const authentication: boolean = false;
 
-export const Header = ({ locale }:  LanguageSelectProps ) => {
+export const Header = ({ locale }: LanguageSelectProps) => {
   const t = useTranslations();
   return (
     <header>
       <Link href="/">
         <MainLogo />
       </Link>
-      <LanguageSelect locale={locale}/>
+      <LanguageSelect locale={locale} />
       {authentication ? (
         <Link href="/auth/sign-out">
           <NavLink text={t('navLink.sighOut')} />
