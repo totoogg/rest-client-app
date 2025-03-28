@@ -33,7 +33,9 @@ export const Header = ({ locale }: LanguageSelectProps) => {
         <Divider type="vertical" className="vertical-divider" />
 
         {authentication ? (
-          <Button onClick={handleSignOut} shape="round">{t('navLink.sighOut')}</Button>
+          <Button onClick={handleSignOut} shape="round">
+            {t('navLink.sighOut')}
+          </Button>
         ) : (
           <Flex className="auth-buttons" justify="flex-end">
             <Link href="/auth/sign-up">
@@ -41,7 +43,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
             </Link>
 
             <Link href="/auth/sign-in">
-              <NavLink text={t('navLink.signIn')} shape="round"/>
+              <NavLink text={t('navLink.signIn')} shape="round" />
             </Link>
           </Flex>
         )}

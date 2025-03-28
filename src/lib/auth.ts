@@ -1,8 +1,18 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, firebaseSignOut, getIdToken, auth } from '@/lib/firebase';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  firebaseSignOut,
+  getIdToken,
+  auth,
+} from '@/lib/firebase';
 
 export const signUp = async (email: string, password: string) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const token = await getIdToken(userCredential.user);
 
     if (token) {
@@ -17,7 +27,11 @@ export const signUp = async (email: string, password: string) => {
 
 export const signIn = async (email: string, password: string) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const token = await getIdToken(userCredential.user);
 
     if (token) {

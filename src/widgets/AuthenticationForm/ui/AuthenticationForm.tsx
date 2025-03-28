@@ -44,7 +44,9 @@ export const AuthenticationForm = ({ isSignUp }: { isSignUp: boolean }) => {
 
   return (
     <div>
-      <Title level={2}>{t(isSignUp ? 'navLink.signUp' : 'navLink.signIn')}</Title>
+      <Title level={2}>
+        {t(isSignUp ? 'navLink.signUp' : 'navLink.signIn')}
+      </Title>
 
       <Form
         name="basic"
