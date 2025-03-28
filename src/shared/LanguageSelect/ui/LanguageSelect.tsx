@@ -15,7 +15,7 @@ export const LanguageSelect = ({ locale }: LanguageSelectProps) => {
 
   return (
     <Select
-      style={{ width: 120 }}
+      style={{ width: 180 }}
       value={locale}
       onChange={changeLanguage}
       options={[

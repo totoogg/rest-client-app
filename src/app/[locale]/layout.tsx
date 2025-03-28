@@ -1,4 +1,5 @@
 import '@/app/globals.css';
+import '@ant-design/v5-patch-for-react-19';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';

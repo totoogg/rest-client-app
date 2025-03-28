@@ -1,7 +1,9 @@
+import { AuthenticationForm } from '@/widgets/AuthenticationForm';
+
 const SignIpPage = () => {
   return (
     <div>
-      <h1>SignIpPage</h1>
+      <AuthenticationForm isSignUp={false}/>
     </div>
   );
 };
