@@ -94,64 +94,68 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
   };
 
   return (
-    <Form
-      form={form}
-      name="dynamic_form_nest_item"
-      onChange={handleChangeHeader}
-      className={styles.wrapper}
-      autoComplete="off"
-    >
-      <Form.List name="headers">
-        {(fields, { add, remove }) => (
-          <div
-            className={
-              (error?.headersValidVariable || '').length > 0 ? styles.error : ''
-            }
-          >
-            <Form.Item>
-              <Button
-                type="dashed"
-                onClick={() => add()}
-                block
-                icon={<PlusOutlined />}
-              >
-                Add Header
-              </Button>
-            </Form.Item>
+    <>
+      <Form
+        form={form}
+        name="dynamic_form_nest_item"
+        onChange={handleChangeHeader}
+        className={styles.wrapper}
+        autoComplete="off"
+      >
+        <Form.List name="headers">
+          {(fields, { add, remove }) => (
+            <div
+              className={
+                (error?.headersValidVariable || '').length > 0
+                  ? styles.error
+                  : ''
+              }
+            >
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<PlusOutlined />}
+                >
+                  Add Header
+                </Button>
+              </Form.Item>
 
-            {fields.map(({ key, name, ...restField }) => (
-              <div key={key} className={styles['form-line']}>
-                <Form.Item
-                  {...restField}
-                  name={[name, 'key']}
-                  className={styles['form-item']}
-                >
-                  <Input placeholder="Key" />
-                </Form.Item>
-                <Form.Item
-                  {...restField}
-                  name={[name, 'value']}
-                  className={styles['form-item']}
-                >
-                  <Input placeholder="Value" />
-                </Form.Item>
-                <CloseOutlined
-                  onClick={() => {
-                    remove(name);
-                    handleChangeHeader();
-                  }}
-                  className={styles.delete}
-                />
-              </div>
-            ))}
-          </div>
-        )}
-      </Form.List>
-      <Typography.Text type="danger">
-        &nbsp;
-        {(error?.headersValidVariable || '').length > 0 &&
-          `Non-existent variables: ${error?.headersValidVariable}`}
-      </Typography.Text>
-    </Form>
+              {fields.map(({ key, name, ...restField }) => (
+                <div key={key} className={styles['form-line']}>
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'key']}
+                    className={styles['form-item']}
+                  >
+                    <Input placeholder="Key" />
+                  </Form.Item>
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'value']}
+                    className={styles['form-item']}
+                  >
+                    <Input placeholder="Value" />
+                  </Form.Item>
+                  <CloseOutlined
+                    onClick={() => {
+                      remove(name);
+                      handleChangeHeader();
+                    }}
+                    className={styles.delete}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </Form.List>
+        <Typography.Text type="danger">
+          &nbsp;
+          {(error?.headersValidVariable || '').length > 0 &&
+            `Non-existent variables: ${error?.headersValidVariable}`}
+        </Typography.Text>
+      </Form>
+    </>
   );
 };

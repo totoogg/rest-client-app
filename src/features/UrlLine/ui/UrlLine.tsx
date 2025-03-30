@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Loader,
   methods,
   parseUrl,
   regExp,
@@ -35,6 +36,8 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
   const router = useRouter();
   const [buttonValid, setButtonValid] = useState(false);
   const [input, setInput] = useState('');
+
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     setMethod?.(methodSelect);
@@ -169,14 +172,17 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
     }
 
     if (buttonValid) {
+      setLoader(true);
       router.refresh();
       const result = await sendReq(window.location.href);
       setResponse?.(result);
+      setLoader(false);
     }
   };
 
   return (
     <>
+      {loader && <Loader />}
       <h2>REST Client</h2>
       <div className={styles.wrapper}>
         <Select
