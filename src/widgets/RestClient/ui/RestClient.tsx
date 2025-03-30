@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { IRestClientProps } from '../model/RestClientTypes';
 import { Flex } from 'antd';
 import styles from './RestClient.module.css';
+import { Response } from '@/entities';
 
 export const RestClient: FC<IRestClientProps> = ({ slug, searchParams }) => {
   return (
@@ -17,6 +18,7 @@ export const RestClient: FC<IRestClientProps> = ({ slug, searchParams }) => {
       <Headers searchParams={searchParams} />
       <Body bodyUrl={slug?.[2] || ''} />
       <CodeGenerator />
+      <Response />
     </Flex>
   );
 };

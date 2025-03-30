@@ -6,11 +6,13 @@ import {
   regExp,
   replaceVariable,
   RestClientContext,
+  sendReq,
 } from '@/shared';
 import { Button, Input, Select, Typography } from 'antd';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import styles from './UrlLine.module.css';
 import { IUrlLineProps } from '../model/UrlLineTypes';
+import { useRouter } from 'next/navigation';
 
 const selects = [...methods].map((method) => ({
   value: method,
@@ -28,7 +30,9 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
     variables,
     error,
     setError,
+    setResponse,
   } = useContext(RestClientContext);
+  const router = useRouter();
   const [buttonValid, setButtonValid] = useState(false);
   const [input, setInput] = useState('');
 
@@ -165,10 +169,9 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
     }
 
     if (buttonValid) {
-      // router.refresh();
-      // const result = await sendReq(window.location.href);
-      // setResponse(result);
-      // console.log(result);
+      router.refresh();
+      const result = await sendReq(window.location.href);
+      setResponse?.(result);
     }
   };
 

@@ -15,6 +15,11 @@ type header = {
   value: string;
 };
 
+type response = {
+  status: number;
+  res: string;
+};
+
 type error = {
   inputValid: boolean;
   headersValidVariable: string;
@@ -37,6 +42,8 @@ interface IRestClientContext {
   variables?: variables;
   error?: error;
   setError?: Dispatch<SetStateAction<error>>;
+  response?: response;
+  setResponse?: (response: response) => void;
 }
 
 interface IRestClientProvider {
@@ -51,6 +58,7 @@ export const RestClientProvider: FC<IRestClientProvider> = ({ children }) => {
   const [body, setBody] = useState<string>('');
   const [headers, setHeaders] = useState<header[]>([]);
   const [variables, setVariables] = useState<variables>({});
+  const [response, setResponse] = useState<response>({ res: '', status: -1 });
   const [error, setError] = useState<error>({
     errorBody: false,
     headersValidVariable: '',
@@ -86,8 +94,10 @@ export const RestClientProvider: FC<IRestClientProvider> = ({ children }) => {
       variables,
       error,
       setError,
+      response,
+      setResponse,
     }),
-    [body, error, headers, method, url, variables]
+    [body, error, headers, method, response, url, variables]
   );
 
   return (

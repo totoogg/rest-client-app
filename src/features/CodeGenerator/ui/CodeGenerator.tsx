@@ -4,7 +4,7 @@ import { Select, Typography } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './CodeGenerator.module.css';
 import { RestClientContext } from '@/shared';
-import { languages } from '../model/const';
+import { languages } from '../consts/languages';
 import { convert } from 'postman-code-generators';
 import { Request } from 'postman-collection';
 
