@@ -1,15 +1,17 @@
 'use client';
 
-import { Select, Typography } from 'antd';
+import { Input, Select, Typography } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './CodeGenerator.module.css';
 import { RestClientContext } from '@/shared';
 import { languages } from '../consts/languages';
 import { convert } from 'postman-code-generators';
 import { Request } from 'postman-collection';
+import { useTranslations } from 'next-intl';
 
 export const CodeGenerator = () => {
   const { method, url, body, headers, error } = useContext(RestClientContext);
+  const t = useTranslations();
   const [showCodeGenerate, setShowCodeGenerate] = useState(false);
   const [selectCodeGenerate, setSelectCodeGenerate] = useState('none');
   const [codeGenerate, setCodeGenerate] = useState(``);
@@ -58,13 +60,13 @@ export const CodeGenerator = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
-        <h3>Code: </h3>
+        <h3>{t('restClient.code')}: </h3>
         <Select
           defaultValue="none"
           className={styles.select}
           onChange={handleCode}
           options={[
-            { value: 'none', label: 'None' },
+            { value: 'none', label: `${t('restClient.none')}` },
             { value: 'fetch', label: 'JavaScript (Fetch api)' },
             { value: 'xhr', label: 'JavaScript (XHR)' },
             { value: 'node', label: 'NodeJS' },
@@ -76,23 +78,28 @@ export const CodeGenerator = () => {
         />
       </div>
       {showCodeGenerate && (
-        <div>
+        <div className={styles.code}>
           {url &&
           error?.headersValidVariable.length === 0 &&
           error?.inputBodyValidVariable.length === 0 &&
           error?.inputValidVariable.length === 0 ? (
-            <code className={styles.code}>
-              <pre>{codeGenerate}</pre>
-            </code>
+            <Input.TextArea
+              rows={10}
+              value={codeGenerate}
+              readOnly
+              style={{
+                resize: 'none',
+              }}
+            />
           ) : (
             <Typography.Text type="danger">
-              &nbsp;{error?.inputValid && 'Fill in the URL.'}{' '}
+              &nbsp;{error?.inputValid && `${t('restClient.urlErrorFill')}.`}{' '}
               {(error?.inputBodyValidVariable || '').length > 0 &&
-                `Incorrect variables in body.`}{' '}
+                `${t('restClient.codeErrorBody')}.`}{' '}
               {(error?.inputValidVariable || '').length > 0 &&
-                `Incorrect variables in URL.`}{' '}
+                `${t('restClient.codeErrorUrl')}.`}{' '}
               {(error?.headersValidVariable || '').length > 0 &&
-                `Incorrect variables in headers.`}
+                `${t('restClient.codeErrorHeaders')}.`}
             </Typography.Text>
           )}
         </div>

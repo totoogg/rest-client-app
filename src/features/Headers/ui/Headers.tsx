@@ -7,10 +7,12 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import styles from './Headers.module.css';
 import { regExp, replaceVariable, RestClientContext } from '@/shared';
 import { IHeadersProps } from '../model/HeadersTypes';
+import { useTranslations } from 'next-intl';
 
 export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
   const { setHeaders, setError, variables, error, headers } =
     useContext(RestClientContext);
+  const t = useTranslations();
   const [form] = useForm();
   const [headersInput, setHeadersInput] = useState<
     { key: string; value: string }[]
@@ -118,7 +120,7 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
                   block
                   icon={<PlusOutlined />}
                 >
-                  Add Header
+                  {t('restClient.headers')}
                 </Button>
               </Form.Item>
 
@@ -153,7 +155,7 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
         <Typography.Text type="danger">
           &nbsp;
           {(error?.headersValidVariable || '').length > 0 &&
-            `Non-existent variables: ${error?.headersValidVariable}`}
+            `${t('restClient.errorVariable')}}: ${error?.headersValidVariable}`}
         </Typography.Text>
       </Form>
     </>

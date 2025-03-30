@@ -5,11 +5,12 @@ import styles from './Body.module.css';
 import { Input, Select, Typography } from 'antd';
 import { regExp, replaceVariable, RestClientContext } from '@/shared';
 import { IBodyProps } from '../model/BodyTypes';
+import { useTranslations } from 'next-intl';
 
 export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
   const { setBody, headers, variables, error, setError, setHeaders } =
     useContext(RestClientContext);
-
+  const t = useTranslations();
   const [inputBody, setInputBody] = useState('');
   const [showBody, setShowBody] = useState(false);
   const [createBody, setCreateBody] = useState(false);
@@ -161,13 +162,13 @@ export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.tittle}>
-        <h3>Body: </h3>
+        <h3>{t('restClient.body')}: </h3>
         <Select
           value={selectBody}
           className={styles.select}
           onChange={handleSelectBody}
           options={[
-            { value: 'none', label: 'None' },
+            { value: 'none', label: `${t('restClient.none')}` },
             { value: 'json', label: 'JSON' },
             { value: 'text', label: 'Text' },
           ]}
@@ -190,9 +191,12 @@ export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
         />
       )}
       <Typography.Text type="danger">
-        &nbsp;{selectBody === 'json' && error?.errorBody && 'Invalid JSON.'}{' '}
+        &nbsp;
+        {selectBody === 'json' &&
+          error?.errorBody &&
+          `${t('restClient.bodyError')}.`}{' '}
         {(error?.inputBodyValidVariable || '').length > 0 &&
-          `Non-existent variables: ${error?.inputBodyValidVariable}`}
+          `${t('restClient.errorVariable')}: ${error?.inputBodyValidVariable}`}
       </Typography.Text>
     </div>
   );

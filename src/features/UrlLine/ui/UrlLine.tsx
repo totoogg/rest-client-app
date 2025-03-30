@@ -13,7 +13,7 @@ import { Button, Input, Select, Typography } from 'antd';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import styles from './UrlLine.module.css';
 import { IUrlLineProps } from '../model/UrlLineTypes';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const selects = [...methods].map((method) => ({
   value: method,
@@ -33,7 +33,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
     setError,
     setResponse,
   } = useContext(RestClientContext);
-  const router = useRouter();
+  const t = useTranslations();
   const [buttonValid, setButtonValid] = useState(false);
   const [input, setInput] = useState('');
 
@@ -173,8 +173,29 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
 
     if (buttonValid) {
       setLoader(true);
-      router.refresh();
-      const result = await sendReq(window.location.href);
+      let result = await sendReq(window.location.href);
+
+      if (result.res === 'Server error') {
+        result = {
+          ...result,
+          res: `${t('restClient.serverError')}`,
+        };
+      }
+
+      if (result.res === 'Invalid request') {
+        result = {
+          ...result,
+          res: `${t('restClient.requestError')}`,
+        };
+      }
+
+      if (result.res === 'Network error. Could not send request') {
+        result = {
+          ...result,
+          res: `${t('restClient.networkError')}`,
+        };
+      }
+
       setResponse?.(result);
       setLoader(false);
     }
@@ -183,7 +204,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
   return (
     <>
       {loader && <Loader />}
-      <h2>REST Client</h2>
+      <h2>REST {t('restClient.title')}</h2>
       <div className={styles.wrapper}>
         <Select
           value={method}
@@ -195,7 +216,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
           <Input
             value={input}
             onChange={handleInput}
-            placeholder="Enter URL or paste text"
+            placeholder={t('restClient.inputPlaceholder')}
             className={styles.input}
             status={
               error?.inputValid || (error?.inputValidVariable || '').length > 0
@@ -204,9 +225,9 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
             }
           />
           <Typography.Text type="danger">
-            &nbsp;{error?.inputValid && 'Fill in the URL.'}{' '}
+            &nbsp;{error?.inputValid && `${t('restClient.urlErrorFill')}.`}{' '}
             {(error?.inputValidVariable || '').length > 0 &&
-              `Non-existent variables: ${error?.inputValidVariable}`}
+              `${t('restClient.errorVariable')}: ${error?.inputValidVariable}`}
           </Typography.Text>
         </div>
         <Button
@@ -214,7 +235,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
           onClick={handleSend}
           className={!buttonValid ? styles['button-disable'] : ''}
         >
-          Send
+          {t('restClient.send')}
         </Button>
       </div>
     </>

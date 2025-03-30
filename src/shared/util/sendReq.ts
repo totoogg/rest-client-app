@@ -36,6 +36,7 @@ export async function sendReq(data: string) {
   };
 
   try {
+    console.log('requestOptions', requestOptions);
     const res = await fetch(url, requestOptions);
 
     if (res.status > 499) {
