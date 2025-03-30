@@ -72,7 +72,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
     const bodyUrl = btoa(
       body
         ? json
-          ? encodeURIComponent(JSON.stringify(bodyText, null, 0))
+          ? encodeURIComponent(JSON.stringify(bodyText))
           : encodeURIComponent(bodyText)
         : ''
     );

@@ -12,7 +12,7 @@ export async function sendReq(data: string) {
 
   const textBody: undefined | string =
     method !== 'GET' && method !== 'HEAD' && slug[2]
-      ? JSON.stringify(decodeURIComponent(atob(decodeURIComponent(slug[2]))))
+      ? decodeURIComponent(atob(decodeURIComponent(slug[2])))
       : undefined;
 
   const myHeaders = new Headers();
@@ -36,7 +36,6 @@ export async function sendReq(data: string) {
   };
 
   try {
-    console.log('requestOptions', requestOptions);
     const res = await fetch(url, requestOptions);
 
     if (res.status > 499) {
