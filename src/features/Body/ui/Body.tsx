@@ -22,7 +22,7 @@ export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
       setInputBody(textBody);
       setBody?.(textBody);
 
-      if (headers) {
+      if (headers && headers?.length > 0) {
         const header = headers.find(
           (el) =>
             el.key === 'Content-Type' &&
@@ -47,6 +47,8 @@ export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
           setSelectBody(typeBody);
           setShowBody(true);
         }
+      } else {
+        setShowBody(true);
       }
     }
   }, [bodyUrl, createBody, headers, setBody]);

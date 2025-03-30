@@ -125,6 +125,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
 
   useEffect(() => {
     if (
+      !input ||
       error?.inputValid ||
       (error?.inputValidVariable || '').length > 0 ||
       error?.errorBody ||
@@ -141,6 +142,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
     error?.inputBodyValidVariable,
     error?.inputValid,
     error?.inputValidVariable,
+    input,
   ]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
