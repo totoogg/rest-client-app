@@ -3,7 +3,7 @@
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import styles from './Headers.module.css';
 import { regExp, replaceVariable, RestClientContext } from '@/shared';
 import { IHeadersProps } from '../model/HeadersTypes';
@@ -40,31 +40,9 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
     }
   }, [form, searchParams, setHeaders]);
 
-  const getHeaders = useCallback(() => {
-    return function getHeaders() {
-      const headersInputStr = headersInput
-        .map((el) => Object.values(el))
-        .join(', ');
-      let headersStr = '';
-
-      if (headers) {
-        headersStr = headers.map((el) => Object.values(el)).join(', ');
-      }
-
-      if (headers && headersStr !== headersInputStr) {
-        form.setFieldsValue({
-          headers: headers.map((el) => ({ key: el.key, value: el.value })),
-        });
-        setHeadersInput(headers);
-      }
-    };
-  }, [form, headers, headersInput]);
-
   useEffect(() => {
-    if (headers) {
-      getHeaders();
-    }
-  }, [getHeaders, headers]);
+    form.setFieldsValue({ headers });
+  }, [form, headers]);
 
   useEffect(() => {
     const headersStr = headersInput.map((el) => Object.values(el)).join(', ');

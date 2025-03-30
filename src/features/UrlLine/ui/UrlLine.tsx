@@ -38,8 +38,10 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
 
   useEffect(() => {
     const urlStart = parseUrl(window.location.href).pathSegments.slice(0, 2);
-
+    const urlStr = btoa(encodeURIComponent(url || ''));
     let urlHeaders = '';
+    let bodyText = '';
+    let json = false;
 
     if (headers) {
       urlHeaders = headers
@@ -50,10 +52,28 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
         .join('&');
     }
 
+    if (body) {
+      try {
+        bodyText = JSON.parse(body);
+        json = true;
+      } catch {
+        bodyText = body;
+        json = false;
+      }
+    }
+
+    const bodyUrl = btoa(
+      body
+        ? json
+          ? encodeURIComponent(JSON.stringify(bodyText, null, 0))
+          : encodeURIComponent(bodyText)
+        : ''
+    );
+
     window.history.replaceState(
       {},
       '',
-      `/${urlStart[0]}/${urlStart[1]}/${method}${url ? `/${url}` : ''}${body ? `/${body}` : ''}${
+      `/${urlStart[0]}/${urlStart[1]}/${method}${urlStr ? `/${urlStr}` : ''}${bodyUrl ? `/${bodyUrl}` : ''}${
         urlHeaders?.length ? `?${urlHeaders}` : ''
       }`
     );
@@ -68,7 +88,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
       url = urlServer;
     }
 
-    setUrl?.(urlServer);
+    setUrl?.(decodeURIComponent(url));
     setInput(decodeURIComponent(url));
   }, [setUrl, urlServer]);
 
@@ -84,7 +104,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
       }
 
       if (res.status === 'fulfilled') {
-        const url = btoa(encodeURIComponent(String(res.res)));
+        const url = String(res.res);
 
         setError?.((el) => ({
           ...el,
@@ -93,7 +113,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
         setUrl?.(url);
       }
     } else {
-      const url = btoa(encodeURIComponent(input));
+      const url = input;
 
       setError?.((el) => ({
         ...el,
@@ -151,38 +171,41 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <Select
-        value={method}
-        className={styles.select}
-        onChange={handleChange}
-        options={selects}
-      />
-      <div className={styles.content_input}>
-        <Input
-          value={input}
-          onChange={handleInput}
-          placeholder="Enter URL or paste text"
-          className={styles.input}
-          status={
-            error?.inputValid || (error?.inputValidVariable || '').length > 0
-              ? 'error'
-              : ''
-          }
+    <>
+      <h2>REST Client</h2>
+      <div className={styles.wrapper}>
+        <Select
+          value={method}
+          className={styles.select}
+          onChange={handleChange}
+          options={selects}
         />
-        <Typography.Text type="danger">
-          &nbsp;{error?.inputValid && 'Fill in the URL.'}{' '}
-          {(error?.inputValidVariable || '').length > 0 &&
-            `Non-existent variables: ${error?.inputValidVariable}`}
-        </Typography.Text>
+        <div className={styles.content_input}>
+          <Input
+            value={input}
+            onChange={handleInput}
+            placeholder="Enter URL or paste text"
+            className={styles.input}
+            status={
+              error?.inputValid || (error?.inputValidVariable || '').length > 0
+                ? 'error'
+                : ''
+            }
+          />
+          <Typography.Text type="danger">
+            &nbsp;{error?.inputValid && 'Fill in the URL.'}{' '}
+            {(error?.inputValidVariable || '').length > 0 &&
+              `Non-existent variables: ${error?.inputValidVariable}`}
+          </Typography.Text>
+        </div>
+        <Button
+          type="primary"
+          onClick={handleSend}
+          className={!buttonValid ? styles['button-disable'] : ''}
+        >
+          Send
+        </Button>
       </div>
-      <Button
-        type="primary"
-        onClick={handleSend}
-        className={!buttonValid ? styles['button-disable'] : ''}
-      >
-        Send
-      </Button>
-    </div>
+    </>
   );
 };
