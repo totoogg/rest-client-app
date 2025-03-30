@@ -18,13 +18,18 @@ const selects = [...methods].map((method) => ({
 }));
 
 export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
-  const { method, setMethod, url, setUrl, body, headers, variables, error } =
-    useContext(RestClientContext);
-
-  const [inputValid, setInputValid] = useState(false);
+  const {
+    method,
+    setMethod,
+    url,
+    setUrl,
+    body,
+    headers,
+    variables,
+    error,
+    setError,
+  } = useContext(RestClientContext);
   const [buttonValid, setButtonValid] = useState(false);
-  const [inputValidVariable, setInputValidVariable] = useState('');
-
   const [input, setInput] = useState('');
 
   useEffect(() => {
@@ -34,11 +39,22 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
   useEffect(() => {
     const urlStart = parseUrl(window.location.href).pathSegments.slice(0, 2);
 
+    let urlHeaders = '';
+
+    if (headers) {
+      urlHeaders = headers
+        .map(
+          (el) =>
+            `${encodeURIComponent(el.key)}=${encodeURIComponent(el.value)}`
+        )
+        .join('&');
+    }
+
     window.history.replaceState(
       {},
       '',
       `/${urlStart[0]}/${urlStart[1]}/${method}${url ? `/${url}` : ''}${body ? `/${body}` : ''}${
-        headers?.length ? `?${headers}` : ''
+        urlHeaders?.length ? `?${urlHeaders}` : ''
       }`
     );
   }, [body, headers, method, url]);
@@ -61,27 +77,36 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
       const res = replaceVariable(input, variables, regExp);
 
       if (res.status === 'error') {
-        setInputValidVariable((res.res as string[]).join(', '));
+        setError?.((el) => ({
+          ...el,
+          inputValidVariable: (res.res as string[]).join(', '),
+        }));
       }
 
       if (res.status === 'fulfilled') {
         const url = btoa(encodeURIComponent(String(res.res)));
 
-        setInputValidVariable('');
+        setError?.((el) => ({
+          ...el,
+          inputValidVariable: '',
+        }));
         setUrl?.(url);
       }
     } else {
       const url = btoa(encodeURIComponent(input));
 
-      setInputValidVariable('');
+      setError?.((el) => ({
+        ...el,
+        inputValidVariable: '',
+      }));
       setUrl?.(url);
     }
-  }, [input, setUrl, variables]);
+  }, [input, setError, setUrl, variables]);
 
   useEffect(() => {
     if (
-      inputValid ||
-      inputValidVariable.length > 0 ||
+      error?.inputValid ||
+      (error?.inputValidVariable || '').length > 0 ||
       error?.errorBody ||
       (error?.headersValidVariable || '').length > 0 ||
       (error?.inputBodyValidVariable || '').length > 0
@@ -94,17 +119,17 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
     error?.errorBody,
     error?.headersValidVariable,
     error?.inputBodyValidVariable,
-    inputValid,
-    inputValidVariable.length,
+    error?.inputValid,
+    error?.inputValidVariable,
   ]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
 
     if (e.target.value.length === 0) {
-      setInputValid(true);
+      setError?.((el) => ({ ...el, inputValid: true }));
     } else {
-      setInputValid(false);
+      setError?.((el) => ({ ...el, inputValid: false }));
     }
   };
 
@@ -114,7 +139,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
 
   const handleSend = async () => {
     if (input.length === 0) {
-      setInputValid(true);
+      setError?.((el) => ({ ...el, inputValid: true }));
     }
 
     if (buttonValid) {
@@ -139,12 +164,16 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
           onChange={handleInput}
           placeholder="Enter URL or paste text"
           className={styles.input}
-          status={inputValid || inputValidVariable.length > 0 ? 'error' : ''}
+          status={
+            error?.inputValid || (error?.inputValidVariable || '').length > 0
+              ? 'error'
+              : ''
+          }
         />
         <Typography.Text type="danger">
-          &nbsp;{inputValid && 'Fill in the URL.'}{' '}
-          {inputValidVariable.length > 0 &&
-            `Non-existent variables: ${inputValidVariable}`}
+          &nbsp;{error?.inputValid && 'Fill in the URL.'}{' '}
+          {(error?.inputValidVariable || '').length > 0 &&
+            `Non-existent variables: ${error?.inputValidVariable}`}
         </Typography.Text>
       </div>
       <Button

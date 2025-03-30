@@ -1,6 +1,14 @@
 'use client';
 
-import { createContext, FC, useEffect, useMemo, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 type header = {
   key: string;
@@ -8,9 +16,11 @@ type header = {
 };
 
 type error = {
+  inputValid: boolean;
   headersValidVariable: string;
   errorBody: boolean;
   inputBodyValidVariable: string;
+  inputValidVariable: string;
 };
 
 type variables = { [key: string]: string };
@@ -23,10 +33,10 @@ interface IRestClientContext {
   body?: string;
   setBody?: (body: string) => void;
   headers?: header[];
-  setHeaders?: (headers: header[]) => void;
+  setHeaders?: Dispatch<SetStateAction<header[]>>;
   variables?: variables;
   error?: error;
-  setError?: (error: error) => void;
+  setError?: Dispatch<SetStateAction<error>>;
 }
 
 interface IRestClientProvider {
@@ -45,6 +55,8 @@ export const RestClientProvider: FC<IRestClientProvider> = ({ children }) => {
     errorBody: false,
     headersValidVariable: '',
     inputBodyValidVariable: '',
+    inputValidVariable: '',
+    inputValid: false,
   });
 
   useEffect(() => {
