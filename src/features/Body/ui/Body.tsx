@@ -1,141 +1,25 @@
 'use client';
 
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import styles from './Body.module.css';
 import { Input, Select, Typography } from 'antd';
-import { regExp, replaceVariable, RestClientContext } from '@/shared';
+import { RestClientContext } from '@/shared';
 import { IBodyProps } from '../model/BodyTypes';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useBodyStart, useChangeHeader, useValidVariable } from '../lib';
 
 export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
-  const { setBody, variables, error, setError, setHeaders } =
-    useContext(RestClientContext);
+  const { setBody, error, setError } = useContext(RestClientContext);
   const t = useTranslations();
 
   const [inputBody, setInputBody] = useState('');
   const [showBody, setShowBody] = useState(false);
   const [createBody, setCreateBody] = useState(false);
-  const searchParams = useSearchParams();
   const [selectBody, setSelectBody] = useState('none');
 
-  useEffect(() => {
-    if (bodyUrl && !createBody) {
-      const textBody = decodeURIComponent(atob(decodeURIComponent(bodyUrl)));
-      setInputBody(textBody);
-      setBody?.(textBody);
-
-      const search = searchParams.get('Content-Type');
-
-      if (search) {
-        const typeBody = search.startsWith('text') ? 'text' : 'json';
-
-        if (typeBody === 'json') {
-          try {
-            setInputBody(JSON.stringify(JSON.parse(textBody), null, 4));
-          } catch {
-            setInputBody(textBody);
-          }
-        }
-
-        setSelectBody(typeBody);
-        setShowBody(true);
-      }
-
-      if (!search && textBody) {
-        setSelectBody('text');
-        setShowBody(true);
-      }
-    }
-  }, [bodyUrl, createBody, searchParams, setBody]);
-
-  useEffect(() => {
-    const checkJson = (value: string) => {
-      try {
-        JSON.parse(value);
-        setError?.((el) => ({
-          ...el,
-          errorBody: false,
-        }));
-      } catch {
-        setError?.((el) => ({
-          ...el,
-          errorBody: true,
-        }));
-      }
-    };
-
-    if (regExp.test(inputBody)) {
-      const res = replaceVariable(inputBody, variables, regExp);
-
-      if (res.status === 'error') {
-        setError?.((el) => ({
-          ...el,
-          inputBodyValidVariable: (res.res as string[]).join(', '),
-        }));
-      }
-
-      if (res.status === 'fulfilled') {
-        setError?.((el) => ({
-          ...el,
-          inputBodyValidVariable: '',
-        }));
-        setBody?.(res.res as string);
-
-        if (selectBody === 'json') {
-          checkJson(res.res as string);
-        }
-      }
-    } else {
-      setError?.((el) => ({
-        ...el,
-        inputBodyValidVariable: '',
-      }));
-      setBody?.(inputBody);
-
-      if (selectBody === 'json') {
-        checkJson(inputBody);
-      }
-    }
-  }, [inputBody, selectBody, setBody, setError, variables]);
-
-  useEffect(() => {
-    setHeaders?.((val) => {
-      const headers = structuredClone(val);
-      const index = headers.clear.findIndex(
-        (el) =>
-          el.key === 'Content-Type' &&
-          (el.value === 'application/json' || 'text/plain')
-      );
-
-      if (index < 0 && selectBody !== 'none') {
-        const header = {
-          key: 'Content-Type',
-          value: selectBody === 'json' ? 'application/json' : 'text/plain',
-        };
-        return {
-          clear: [...headers.clear, header],
-          dirt: [...headers.dirt, header],
-        };
-      }
-
-      if (index >= 0 && selectBody !== 'none') {
-        const header = {
-          key: 'Content-Type',
-          value: selectBody === 'json' ? 'application/json' : 'text/plain',
-        };
-        headers.clear[index] = header;
-        headers.dirt[index] = header;
-      }
-
-      if (selectBody === 'none' && index >= 0) {
-        headers.clear.splice(index, 1);
-        headers.dirt.splice(index, 1);
-      }
-
-      return headers;
-    });
-  }, [selectBody, setHeaders]);
+  useBodyStart(bodyUrl, createBody, setInputBody, setShowBody, setSelectBody);
+  useValidVariable(inputBody, selectBody);
+  useChangeHeader(selectBody);
 
   const handleSelectBody = (value: string) => {
     setShowBody(value !== 'none');
