@@ -12,6 +12,7 @@ import {
   useValidSend,
   useValidVariable,
 } from '../lib';
+import { saveHistory } from '../util';
 
 const selects = [...methods].map((method) => ({
   value: method,
@@ -85,6 +86,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
         };
       }
 
+      saveHistory(window.location.href);
       setResponse?.(result);
       setLoader(false);
     }
