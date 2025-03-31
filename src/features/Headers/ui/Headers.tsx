@@ -5,79 +5,30 @@ import { Button, Form, Input, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import styles from './Headers.module.css';
-import { regExp, replaceVariable, RestClientContext } from '@/shared';
+import { RestClientContext } from '@/shared';
 import { IHeadersProps } from '../model/HeadersTypes';
 import { useTranslations } from 'next-intl';
+import { useStartHeaders, useValidVariable } from '../lib';
 
 export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
-  const { setHeaders, setError, variables, error, headers } =
-    useContext(RestClientContext);
+  const { error, headers } = useContext(RestClientContext);
   const t = useTranslations();
   const [form] = useForm();
   const [headersInput, setHeadersInput] = useState<
     { key: string; value: string }[]
   >([]);
 
+  const { startHeaders } = useStartHeaders(searchParams);
+  useValidVariable(headersInput);
+
   useEffect(() => {
-    if (Object.keys(searchParams).length > 0) {
-      const headersArr = Object.entries(searchParams)
-        .map((el) => {
-          if (Array.isArray(el[1])) {
-            return el[1].map((val) => ({
-              key: decodeURIComponent(el[0]),
-              value: decodeURIComponent(val),
-            }));
-          }
-
-          return {
-            key: decodeURIComponent(el[0] as string),
-            value: decodeURIComponent(el[1] as string),
-          };
-        })
-        .flat();
-
-      setHeaders?.(headersArr as { key: string; value: string }[]);
-      setHeadersInput(headersArr as { key: string; value: string }[]);
-      form.setFieldsValue({ headers: headersArr });
-    }
-  }, [form, searchParams, setHeaders]);
+    setHeadersInput(startHeaders as { key: string; value: string }[]);
+    form.setFieldsValue({ headers: startHeaders });
+  }, [form, startHeaders]);
 
   useEffect(() => {
     form.setFieldsValue({ headers });
   }, [form, headers]);
-
-  useEffect(() => {
-    const headersStr = headersInput.map((el) => Object.values(el)).join(', ');
-
-    if (regExp.test(headersStr)) {
-      const res = replaceVariable(headersStr, variables, regExp);
-      if (res.status === 'error') {
-        setError?.((error) => ({
-          ...error,
-          headersValidVariable: (res.res as string[]).join(', '),
-        }));
-      }
-
-      if (res.status === 'fulfilled') {
-        setError?.((error) => ({
-          ...error,
-          headersValidVariable: '',
-        }));
-        setHeaders?.(
-          (res.res as string)
-            .split(', ')
-            .map((el) => el.split(','))
-            .map((el) => ({ key: el[0], value: el[1] }))
-        );
-      }
-    } else {
-      setError?.((error) => ({
-        ...error,
-        headersValidVariable: '',
-      }));
-      setHeaders?.(headersInput);
-    }
-  }, [headersInput, setError, setHeaders, variables]);
 
   const handleChangeHeader = () => {
     const headers = form
@@ -155,7 +106,7 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
         <Typography.Text type="danger">
           &nbsp;
           {(error?.headersValidVariable || '').length > 0 &&
-            `${t('restClient.errorVariable')}}: ${error?.headersValidVariable}`}
+            `${t('restClient.errorVariable')}: ${error?.headersValidVariable}`}
         </Typography.Text>
       </Form>
     </>
