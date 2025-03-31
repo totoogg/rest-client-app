@@ -6,15 +6,17 @@ import { Input, Select, Typography } from 'antd';
 import { regExp, replaceVariable, RestClientContext } from '@/shared';
 import { IBodyProps } from '../model/BodyTypes';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 
 export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
-  const { setBody, headers, variables, error, setError, setHeaders } =
+  const { setBody, variables, error, setError, setHeaders } =
     useContext(RestClientContext);
   const t = useTranslations();
+
   const [inputBody, setInputBody] = useState('');
   const [showBody, setShowBody] = useState(false);
   const [createBody, setCreateBody] = useState(false);
-
+  const searchParams = useSearchParams();
   const [selectBody, setSelectBody] = useState('none');
 
   useEffect(() => {
@@ -23,36 +25,29 @@ export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
       setInputBody(textBody);
       setBody?.(textBody);
 
-      if (headers && headers?.length > 0) {
-        const header = headers.find(
-          (el) =>
-            el.key === 'Content-Type' &&
-            (el.value === 'application/json' || 'text/plain')
-        );
+      const search = searchParams.get('Content-Type');
 
-        if (header) {
-          const typeBody =
-            typeof header?.value === 'string' &&
-            (!header?.value || header.value.startsWith('text'))
-              ? 'text'
-              : 'json';
+      if (search) {
+        const typeBody = search.startsWith('text') ? 'text' : 'json';
 
-          if (typeBody === 'json') {
-            try {
-              setInputBody(JSON.stringify(JSON.parse(textBody), null, 4));
-            } catch {
-              setInputBody(textBody);
-            }
+        if (typeBody === 'json') {
+          try {
+            setInputBody(JSON.stringify(JSON.parse(textBody), null, 4));
+          } catch {
+            setInputBody(textBody);
           }
-
-          setSelectBody(typeBody);
-          setShowBody(true);
         }
-      } else {
+
+        setSelectBody(typeBody);
+        setShowBody(true);
+      }
+
+      if (!search && textBody) {
+        setSelectBody('text');
         setShowBody(true);
       }
     }
-  }, [bodyUrl, createBody, headers, setBody]);
+  }, [bodyUrl, createBody, searchParams, setBody]);
 
   useEffect(() => {
     const checkJson = (value: string) => {
@@ -106,41 +101,46 @@ export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
 
   useEffect(() => {
     setHeaders?.((val) => {
-      const arr = [...val];
-      const index = arr.findIndex(
+      const headers = structuredClone(val);
+      const index = headers.clear.findIndex(
         (el) =>
           el.key === 'Content-Type' &&
           (el.value === 'application/json' || 'text/plain')
       );
 
       if (index < 0 && selectBody !== 'none') {
-        return [
-          ...arr,
-          {
-            key: 'Content-Type',
-            value: selectBody === 'json' ? 'application/json' : 'text/plain',
-          },
-        ];
-      }
-
-      if (index >= 0 && selectBody !== 'none') {
-        arr[index] = {
+        const header = {
           key: 'Content-Type',
           value: selectBody === 'json' ? 'application/json' : 'text/plain',
         };
+        return {
+          clear: [...headers.clear, header],
+          dirt: [...headers.dirt, header],
+        };
+      }
+
+      if (index >= 0 && selectBody !== 'none') {
+        const header = {
+          key: 'Content-Type',
+          value: selectBody === 'json' ? 'application/json' : 'text/plain',
+        };
+        headers.clear[index] = header;
+        headers.dirt[index] = header;
       }
 
       if (selectBody === 'none' && index >= 0) {
-        arr.splice(index, 1);
+        headers.clear.splice(index, 1);
+        headers.dirt.splice(index, 1);
       }
 
-      return arr;
+      return headers;
     });
   }, [selectBody, setHeaders]);
 
   const handleSelectBody = (value: string) => {
     setShowBody(value !== 'none');
     setSelectBody(value);
+    setCreateBody(true);
 
     if (value === 'none') {
       setBody?.('');

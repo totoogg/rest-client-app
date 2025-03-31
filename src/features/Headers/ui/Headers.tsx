@@ -3,7 +3,7 @@
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Typography } from 'antd';
 import { useForm } from 'antd/es/form/Form';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import styles from './Headers.module.css';
 import { RestClientContext } from '@/shared';
 import { IHeadersProps } from '../model/HeadersTypes';
@@ -11,24 +11,16 @@ import { useTranslations } from 'next-intl';
 import { useStartHeaders, useValidVariable } from '../lib';
 
 export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
-  const { error, headers } = useContext(RestClientContext);
+  const { error, headers, setHeaders } = useContext(RestClientContext);
   const t = useTranslations();
   const [form] = useForm();
-  const [headersInput, setHeadersInput] = useState<
-    { key: string; value: string }[]
-  >([]);
 
-  const { startHeaders } = useStartHeaders(searchParams);
-  useValidVariable(headersInput);
+  useStartHeaders(searchParams);
+  useValidVariable();
 
   useEffect(() => {
-    setHeadersInput(startHeaders as { key: string; value: string }[]);
-    form.setFieldsValue({ headers: startHeaders });
-  }, [form, startHeaders]);
-
-  useEffect(() => {
-    form.setFieldsValue({ headers });
-  }, [form, headers]);
+    form.setFieldsValue({ headers: headers?.dirt });
+  }, [form, headers?.dirt]);
 
   const handleChangeHeader = () => {
     const headers = form
@@ -43,7 +35,7 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
           };
         }
       );
-    setHeadersInput(headers);
+    setHeaders?.((el) => ({ ...el, dirt: headers }));
   };
 
   return (

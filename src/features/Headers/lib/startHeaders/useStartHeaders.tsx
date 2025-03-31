@@ -1,13 +1,10 @@
 import { RestClientContext } from '@/shared';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 export const useStartHeaders = (searchParams: {
   [key: string]: string | string[] | undefined;
 }) => {
   const { setHeaders } = useContext(RestClientContext);
-  const [startHeaders, setStartHeadersInput] = useState<
-    { key: string; value: string }[]
-  >([]);
 
   useEffect(() => {
     if (Object.keys(searchParams).length > 0) {
@@ -27,10 +24,7 @@ export const useStartHeaders = (searchParams: {
         })
         .flat();
 
-      setHeaders?.(headersArr as { key: string; value: string }[]);
-      setStartHeadersInput(headersArr as { key: string; value: string }[]);
+      setHeaders?.({ clear: headersArr, dirt: headersArr });
     }
   }, [searchParams, setHeaders]);
-
-  return { startHeaders };
 };

@@ -1,16 +1,13 @@
 import { regExp, replaceVariable, RestClientContext } from '@/shared';
 import { useContext, useEffect } from 'react';
 
-export const useValidVariable = (
-  headersInput: {
-    key: string;
-    value: string;
-  }[]
-) => {
-  const { setHeaders, setError, variables } = useContext(RestClientContext);
+export const useValidVariable = () => {
+  const { setHeaders, setError, variables, headers } =
+    useContext(RestClientContext);
 
   useEffect(() => {
-    const headersStr = headersInput.map((el) => Object.values(el)).join(', ');
+    const headersStr =
+      headers?.dirt.map((el) => Object.values(el)).join(', ') || '';
 
     if (regExp.test(headersStr)) {
       const res = replaceVariable(headersStr, variables, regExp);
@@ -26,19 +23,23 @@ export const useValidVariable = (
           ...error,
           headersValidVariable: '',
         }));
-        setHeaders?.(
-          (res.res as string)
+        setHeaders?.((el) => ({
+          ...el,
+          clear: (res.res as string)
             .split(', ')
             .map((el) => el.split(','))
-            .map((el) => ({ key: el[0], value: el[1] }))
-        );
+            .map((el) => ({ key: el[0], value: el[1] })),
+        }));
       }
     } else {
       setError?.((error) => ({
         ...error,
         headersValidVariable: '',
       }));
-      setHeaders?.(headersInput);
+      setHeaders?.((el) => ({
+        ...el,
+        clear: headers?.dirt || [],
+      }));
     }
-  }, [headersInput, setError, setHeaders, variables]);
+  }, [headers?.dirt, setError, setHeaders, variables]);
 };

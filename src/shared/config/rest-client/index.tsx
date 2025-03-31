@@ -37,8 +37,8 @@ interface IRestClientContext {
   setUrl?: (url: string) => void;
   body?: string;
   setBody?: (body: string) => void;
-  headers?: header[];
-  setHeaders?: Dispatch<SetStateAction<header[]>>;
+  headers?: { dirt: header[]; clear: header[] };
+  setHeaders?: Dispatch<SetStateAction<{ dirt: header[]; clear: header[] }>>;
   variables?: variables;
   error?: error;
   setError?: Dispatch<SetStateAction<error>>;
@@ -56,7 +56,10 @@ export const RestClientProvider: FC<IRestClientProvider> = ({ children }) => {
   const [method, setMethod] = useState<string>('');
   const [url, setUrl] = useState<string>('');
   const [body, setBody] = useState<string>('');
-  const [headers, setHeaders] = useState<header[]>([]);
+  const [headers, setHeaders] = useState<{ dirt: header[]; clear: header[] }>({
+    clear: [],
+    dirt: [],
+  });
   const [variables, setVariables] = useState<variables>({});
   const [response, setResponse] = useState<response>({ res: '', status: -1 });
   const [error, setError] = useState<error>({

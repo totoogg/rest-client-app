@@ -11,8 +11,8 @@ export const useChangeUrl = () => {
     let bodyText = '';
     let json = false;
 
-    if (headers) {
-      urlHeaders = headers
+    if (headers?.clear) {
+      urlHeaders = headers.clear
         .map(
           (el) =>
             `${encodeURIComponent(el.key)}=${encodeURIComponent(el.value)}`
@@ -45,5 +45,5 @@ export const useChangeUrl = () => {
         urlHeaders?.length ? `?${urlHeaders}` : ''
       }`
     );
-  }, [body, headers, method, url]);
+  }, [body, headers?.clear, method, url]);
 };

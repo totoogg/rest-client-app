@@ -28,7 +28,7 @@ export const CodeGenerator = () => {
       const customRequest = new Request({
         url: url || '',
         method: method || 'GET',
-        header: headers,
+        header: headers?.clear,
         body: body
           ? {
               mode: 'raw',
@@ -50,7 +50,7 @@ export const CodeGenerator = () => {
     if (selectCodeGenerate !== 'none') {
       generateCode();
     }
-  }, [body, headers, method, selectCodeGenerate, url]);
+  }, [body, headers?.clear, method, selectCodeGenerate, url]);
 
   const handleCode = (value: string) => {
     setShowCodeGenerate(value !== 'none');
