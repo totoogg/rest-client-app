@@ -6,7 +6,6 @@ const intlMiddleware = createIntlMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-
   const locale = path.split('/')[1] || 'en';
   const pathWithoutLocale = path.replace(`/${locale}`, '') || '/';
 
@@ -16,11 +15,11 @@ export async function middleware(request: NextRequest) {
 
   const token = request.cookies.get('authToken')?.value || '';
 
-  if (isPublicPath && token) {
+  if ((isPublicPath || token) && !path.startsWith(`/${locale}`)) {
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
-  if (!isPublicPath && !token) {
+  if (!isPublicPath && !token && !path.includes('/auth')) {
     return NextResponse.redirect(
       new URL(`/${locale}/auth/sign-in`, request.url)
     );

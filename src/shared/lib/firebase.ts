@@ -3,6 +3,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
   signOut as firebaseSignOut,
   getIdToken,
 } from 'firebase/auth';
@@ -16,11 +17,12 @@ const firebaseConfig = {
   appId: '1:642910563176:web:9ec2875f236bf86b2244dd',
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const clientApp = initializeApp(firebaseConfig);
+const auth = getAuth(clientApp);
 
 export {
   auth,
+  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   firebaseSignOut,

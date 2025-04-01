@@ -4,6 +4,7 @@ import { AuthenticatedSection } from '@/widgets';
 
 export default function HomePage() {
   const t = useTranslations('homePage');
+
   return (
     <>
       <h1>{t('title')}</h1>

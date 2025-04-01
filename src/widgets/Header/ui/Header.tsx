@@ -9,15 +9,16 @@ import { useTranslations } from 'next-intl';
 import { Button, Divider, Flex } from 'antd';
 import { signOut } from '@/shared/lib/auth';
 import { useRouter } from 'next/navigation';
-
-const authentication: boolean = false;
+import { useUser } from '@/shared/lib/context';
 
 export const Header = ({ locale }: LanguageSelectProps) => {
   const t = useTranslations();
   const router = useRouter();
+  const user = useUser();
 
   const handleSignOut = async () => {
     await signOut();
+
     router.push('/auth/sign-in');
   };
 
@@ -32,7 +33,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
 
         <Divider type="vertical" className="vertical-divider" />
 
-        {authentication ? (
+        {user ? (
           <Button onClick={handleSignOut} shape="round">
             {t('navLink.sighOut')}
           </Button>

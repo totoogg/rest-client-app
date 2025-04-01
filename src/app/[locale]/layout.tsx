@@ -7,6 +7,7 @@ import { AntdConfigProvider } from '@/shared/config/antd';
 import { Header, Footer } from '@/widgets';
 import type { Metadata } from 'next';
 import { LanguageSelectProps } from '@/i18n/model/types';
+import { UserProvider } from '@/shared/lib/context';
 
 export const metadata: Metadata = {
   title: 'REST Client',
@@ -29,13 +30,15 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider>
-          <AntdConfigProvider>
-            <Header locale={locale} />
-            <main>{children}</main>
-            <Footer />
-          </AntdConfigProvider>
-        </NextIntlClientProvider>
+        <UserProvider>
+          <NextIntlClientProvider>
+            <AntdConfigProvider>
+              <Header locale={locale} />
+              <main>{children}</main>
+              <Footer />
+            </AntdConfigProvider>
+          </NextIntlClientProvider>
+        </UserProvider>
       </body>
     </html>
   );
