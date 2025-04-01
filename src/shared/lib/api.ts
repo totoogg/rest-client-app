@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAuthToken } from '@/lib/auth';
+import { getAuthToken } from '@/shared/lib/auth';
 
 const api = axios.create({
   baseURL: 'https://your-api-endpoint.com', // URL

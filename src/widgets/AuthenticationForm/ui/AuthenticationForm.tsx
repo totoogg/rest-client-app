@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signIn, signUp } from '@/lib/auth';
+import { signIn, signUp } from '@/shared/lib/auth';
 import { Button, Form, FormProps, Input } from 'antd';
 import { useTranslations } from 'next-intl';
 import Title from 'antd/lib/typography/Title';

@@ -4,7 +4,7 @@ import {
   firebaseSignOut,
   getIdToken,
   auth,
-} from '@/lib/firebase';
+} from '@/shared/lib/firebase';
 
 export const signUp = async (email: string, password: string) => {
   try {

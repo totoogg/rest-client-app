@@ -7,7 +7,7 @@ import { LanguageSelectProps } from '@/i18n/model/types';
 import { NavLink } from '@/shared/Link';
 import { useTranslations } from 'next-intl';
 import { Button, Divider, Flex } from 'antd';
-import { signOut } from '@/lib/auth';
+import { signOut } from '@/shared/lib/auth';
 import { useRouter } from 'next/navigation';
 
 const authentication: boolean = false;
