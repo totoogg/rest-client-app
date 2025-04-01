@@ -1,11 +1,7 @@
 import { AuthenticationForm } from '@/widgets/AuthenticationForm';
 
 const SignUpPage = () => {
-  return (
-    <div>
-      <AuthenticationForm isSignUp={true} />
-    </div>
-  );
+  return <AuthenticationForm isSignUp={true} />;
 };
 
 export default SignUpPage;

@@ -16,12 +16,16 @@ export const AuthenticationForm = ({ isSignUp }: { isSignUp: boolean }) => {
   const t = useTranslations();
   const router = useRouter();
   const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(false);
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    const { email, password } = values;
+    setLoading(true);
+    setError(undefined);
 
     try {
+      const { email, password } = values;
       let token: string | undefined;
+
       if (isSignUp) {
         token = await signUp(email, password);
       } else {
@@ -29,10 +33,12 @@ export const AuthenticationForm = ({ isSignUp }: { isSignUp: boolean }) => {
       }
 
       if (token) {
-        router.push('/main');
+        router.push('/');
       }
     } catch (error) {
       setError((error as Error).message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,7 +81,7 @@ export const AuthenticationForm = ({ isSignUp }: { isSignUp: boolean }) => {
         </Form.Item>
 
         <Form.Item label={null}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             {t(isSignUp ? 'navLink.signUp' : 'navLink.signIn')}
           </Button>
         </Form.Item>
