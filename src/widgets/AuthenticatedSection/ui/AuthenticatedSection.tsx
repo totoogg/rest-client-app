@@ -12,7 +12,7 @@ export const AuthenticatedSection = () => {
         <span className="span-username">{username}</span>!
       </h2>
       <div className="buttons-block">
-        <Link href="/auth/sign-in">
+        <Link href="/rest-client">
           <NavLink text={t('navLink.restClient')} />
         </Link>
         <Link href="/auth/sign-in">
