@@ -103,3 +103,13 @@ main {
   display: inline-flex;
   padding: 0 5px;
 }
+
+.auth-buttons {
+  min-width: 220px;
+}
+
+.vertical-divider {
+  width: 2px;
+  height: 34px;
+  background-color: var(--text-secondary-color);
+}

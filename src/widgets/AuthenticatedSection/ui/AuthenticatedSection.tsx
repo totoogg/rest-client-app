@@ -1,10 +1,16 @@
+'use client';
+
 import { NavLink } from '@/shared/Link';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { useUser } from '@/shared/lib/context';
 
 export const AuthenticatedSection = () => {
   const t = useTranslations();
-  const username = 'Custom Username';
+  const user = useUser();
+
+  const username = user || 'Custom Username';
+
   return (
     <>
       <h2>
