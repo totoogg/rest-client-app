@@ -94,7 +94,7 @@ export const AuthenticationForm = ({ isSignUp }: { isSignUp: boolean }) => {
         <Button
           type="link"
           onClick={() =>
-            router.push(`/auth/${isSignUp ? 'sign-up' : 'sign-in'}`)
+            router.push(`/auth/${isSignUp ? 'sign-in' : 'sign-up'}`)
           }
         >
           {t(isSignUp ? 'navLink.signIn' : 'navLink.signUp')}
