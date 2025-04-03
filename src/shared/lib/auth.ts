@@ -6,6 +6,36 @@ import {
   getIdToken,
   updateProfile,
 } from '@/shared/lib/firebase';
+import { UserCredential } from '@firebase/auth';
+import { updateDbRenderCrew } from '@/shared/util/updateDbRenderCrew';
+
+const handleAuth = async (userCredential: UserCredential, email: string) => {
+  const token = await getIdToken(userCredential.user);
+
+  if (token) {
+    const res = await fetch('/api/auth/setToken', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    if (res.ok) {
+      console.log('Token set in cookies');
+    } else {
+      console.error('Error setting token in cookies');
+    }
+
+    localStorage.setItem(
+      'userRenderCrew',
+      JSON.stringify({ user: email, token })
+    );
+    updateDbRenderCrew(email);
+  }
+
+  return token;
+};
 
 export const signIn = async (email: string, password: string) => {
   try {
@@ -14,30 +44,8 @@ export const signIn = async (email: string, password: string) => {
       email,
       password
     );
-    const token = await getIdToken(userCredential.user);
 
-    if (token) {
-      const res = await fetch('/api/auth/setToken', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      if (res.ok) {
-        console.log('Token set in cookies');
-      } else {
-        console.error('Error setting token in cookies');
-      }
-
-      localStorage.setItem(
-        'userRenderCrew',
-        JSON.stringify({ user: email, token })
-      );
-    }
-
-    return token;
+    return await handleAuth(userCredential, email);
   } catch (error) {
     throw new Error((error as Error).message);
   }
@@ -55,32 +63,10 @@ export const signUp = async (
       password
     );
     const user = userCredential.user;
+
     await updateProfile(user, { displayName });
 
-    const token = await getIdToken(userCredential.user);
-
-    if (token) {
-      const res = await fetch('/api/auth/setToken', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      if (res.ok) {
-        console.log('Token set in cookies');
-      } else {
-        console.error('Error setting token in cookies');
-      }
-    }
-
-    localStorage.setItem(
-      'userRenderCrew',
-      JSON.stringify({ user: email, token })
-    );
-
-    return token;
+    return await handleAuth(userCredential, email);
   } catch (error) {
     throw new Error((error as Error).message);
   }
