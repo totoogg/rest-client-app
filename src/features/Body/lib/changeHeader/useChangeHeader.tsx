@@ -10,17 +10,17 @@ export const useChangeHeader = (selectBody: string) => {
       const index = headers.clear.findIndex(
         (el) =>
           el.key === 'Content-Type' &&
-          (el.value === 'application/json' || 'text/plain')
+          (el.value === 'application/json' || el.value === 'text/plain')
       );
-
+      console.log('index', index);
       if (index < 0 && selectBody !== 'none') {
         const header = {
           key: 'Content-Type',
           value: selectBody === 'json' ? 'application/json' : 'text/plain',
         };
         return {
-          clear: [...headers.clear, header],
-          dirt: [...headers.dirt, header],
+          clear: [...structuredClone(headers.clear), header],
+          dirt: [...structuredClone(headers.dirt), header],
         };
       }
 
