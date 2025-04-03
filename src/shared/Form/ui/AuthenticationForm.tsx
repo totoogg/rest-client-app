@@ -1,11 +1,21 @@
 'use client';
 
-import React from 'react';
-import { Button, Form, Input, Typography, Card, Divider, Flex } from 'antd';
+import React, { useCallback, useState } from 'react';
+import {
+  Button,
+  Form,
+  Input,
+  Typography,
+  Card,
+  Divider,
+  Flex,
+  Rate,
+} from 'antd';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { createYupSync } from '@/shared/util/createYupSync';
 import * as yup from 'yup';
+import { evaluatePasswordStrength } from '@/shared/util/evaluatePasswordStrength';
 
 const { Text } = Typography;
 
@@ -35,6 +45,13 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
   const t = useTranslations();
   const router = useRouter();
   const [form] = Form.useForm();
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const password = Form.useWatch('password', form);
+
+  const changePasswordStrength = useCallback(
+    () => setPasswordStrength(evaluatePasswordStrength(password)),
+    [password]
+  );
 
   return (
     <Card title={title} variant="borderless">
@@ -53,9 +70,19 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
             name={name}
             rules={[createYupSync(schema, name, form.getFieldsValue)]}
           >
-            {type === 'password' ? <Input.Password /> : <Input />}
+            {type === 'password' ? (
+              <Input.Password onChange={changePasswordStrength} />
+            ) : (
+              <Input />
+            )}
           </Form.Item>
         ))}
+
+        {title === t('navLink.signUp') && (
+          <Form.Item label={null}>
+            <Rate disabled count={5} value={passwordStrength} />
+          </Form.Item>
+        )}
 
         <Form.Item label={null}>
           <Button type="primary" htmlType="submit" loading={loading}>

@@ -30,6 +30,11 @@ export const signIn = async (email: string, password: string) => {
       } else {
         console.error('Error setting token in cookies');
       }
+
+      localStorage.setItem(
+        'userRenderCrew',
+        JSON.stringify({ user: email, token })
+      );
     }
 
     return token;
@@ -70,6 +75,11 @@ export const signUp = async (
       }
     }
 
+    localStorage.setItem(
+      'userRenderCrew',
+      JSON.stringify({ user: email, token })
+    );
+
     return token;
   } catch (error) {
     throw new Error((error as Error).message);
@@ -86,6 +96,8 @@ export const signOut = async () => {
         'Content-Type': 'application/json',
       },
     });
+
+    localStorage.removeItem('userRenderCrew');
   } catch (error) {
     throw new Error((error as Error).message);
   }
