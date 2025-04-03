@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   firebaseSignOut,
   getIdToken,
+  updateProfile,
 } from '@/shared/lib/firebase';
 
 export const signIn = async (email: string, password: string) => {
@@ -37,13 +38,19 @@ export const signIn = async (email: string, password: string) => {
   }
 };
 
-export const signUp = async (email: string, password: string) => {
+export const signUp = async (
+  email: string,
+  password: string,
+  displayName: string
+) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
+    const user = userCredential.user;
+    await updateProfile(user, { displayName });
 
     const token = await getIdToken(userCredential.user);
 

@@ -1,7 +1,7 @@
-import { AuthenticationForm } from '@/widgets/AuthenticationForm';
+import { SignUpForm } from '@/widgets/Authentification';
 
 const SignUpPage = () => {
-  return <AuthenticationForm isSignUp={true} />;
+  return <SignUpForm />;
 };
 
 export default SignUpPage;
