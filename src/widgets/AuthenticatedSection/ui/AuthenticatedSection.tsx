@@ -21,10 +21,10 @@ export const AuthenticatedSection = () => {
         <Link href="/rest-client">
           <NavLink text={t('navLink.restClient')} />
         </Link>
-        <Link href="/auth/sign-in">
+        <Link href="/history">
           <NavLink text={t('navLink.history')} />
         </Link>
-        <Link href="/auth/sign-in">
+        <Link href="/variables">
           <NavLink text={t('navLink.variables')} />
         </Link>
       </div>
