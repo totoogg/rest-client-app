@@ -34,5 +34,14 @@
   },
   "history": {
     "title": "История запросов"
+  },
+  "auth": {
+    "noAccount": "Нет аккаунта?",
+    "haveAccount": "Уже есть аккаунт?",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Пароль для подтверждения",
+    "lastName": "Фамилия",
+    "firstName": "Имя"
   }
 }

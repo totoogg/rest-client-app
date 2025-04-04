@@ -25,6 +25,10 @@ export async function middleware(request: NextRequest) {
     );
   }
 
+  if (token && path.includes('/auth')) {
+    return NextResponse.redirect(new URL(`/`, request.url));
+  }
+
   return intlMiddleware(request);
 }
 
