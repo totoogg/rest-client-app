@@ -5,10 +5,12 @@ import React from 'react';
 import styles from './History.module.css';
 import { IHistoryState } from '../model/typeState';
 import { useGetHistory } from '../lib';
+import { useTranslations } from 'next-intl';
 
 export const History = () => {
   const [history, setHistory] = React.useState<IHistoryState[]>([]);
   useGetHistory(setHistory);
+  const t = useTranslations();
 
   if (history.length === 0) {
     return <EmptyHistory />;
@@ -16,13 +18,12 @@ export const History = () => {
 
   return (
     <>
-      <h2>History Requests</h2>
+      <h2>{t('history.title')}</h2>
       <div className={styles.wrapper}>
         {history.map((item) => (
           <ItemHistory
             href={item.href}
             method={item.method}
-            textBody={item.textBody}
             url={item.url}
             key={item.id}
           />

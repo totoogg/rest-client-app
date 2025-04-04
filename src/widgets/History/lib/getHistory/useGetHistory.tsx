@@ -6,7 +6,9 @@ export const useGetHistory = (
   setHistory: Dispatch<React.SetStateAction<IHistoryState[]>>
 ) => {
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('userRenderCrew') || '').user;
+    const userLocal = localStorage.getItem('userRenderCrew') || '{}';
+
+    const user = JSON.parse(userLocal)?.user;
 
     if (user) {
       const history = JSON.parse(localStorage.getItem('dbRenderCrew') || '')[

@@ -31,5 +31,8 @@
     "serverError": "Server error",
     "requestError": "Invalid request",
     "networkError": "Network error. Could not send request"
+  },
+  "history": {
+    "title": "History Requests"
   }
 }
