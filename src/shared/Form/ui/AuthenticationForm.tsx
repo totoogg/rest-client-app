@@ -34,14 +34,14 @@ interface AuthenticationFormProps {
   error?: string;
 }
 
-export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
+export const AuthenticationForm = ({
   title,
   schema,
   fields,
   onSubmitAction,
   loading,
   error,
-}) => {
+}: AuthenticationFormProps) => {
   const t = useTranslations();
   const router = useRouter();
   const [form] = Form.useForm();
