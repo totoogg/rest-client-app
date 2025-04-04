@@ -32,6 +32,15 @@
     "requestError": "Неверный запрос",
     "networkError": "Ошибка сети. Не удалось отправить запрос"
   },
+  "auth": {
+    "noAccount": "Нет аккаунта?",
+    "haveAccount": "Уже есть аккаунт?",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Пароль для подтверждения",
+    "lastName": "Фамилия",
+    "firstName": "Имя"
+  },
   "variables": {
     "validationMessage": " {{title}} обязательное поле"
   }

@@ -19,7 +19,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
   const handleSignOut = async () => {
     await signOut();
 
-    router.push('/auth/sign-in');
+    router.push('/');
   };
 
   return (
