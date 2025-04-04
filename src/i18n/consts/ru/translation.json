@@ -31,5 +31,8 @@
     "serverError": "Ошибка сервера",
     "requestError": "Неверный запрос",
     "networkError": "Ошибка сети. Не удалось отправить запрос"
+  },
+  "variables": {
+    "validationMessage": " {{title}} обязательное поле"
   }
 }

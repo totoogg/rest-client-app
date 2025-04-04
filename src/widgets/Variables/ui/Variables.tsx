@@ -22,6 +22,7 @@ import {
   EditableContectProps,
   Item,
 } from '../model/dataVariables';
+import { useTranslations } from 'next-intl';
 
 const EditableContext = createContext<EditableContectProps | null>(null);
 
@@ -48,7 +49,8 @@ const EditableCell: FC<PropsWithChildren<EditableCellProps>> = ({
   const [editing, setEditing] = useState(false);
   const inputRef = useRef<InputRef>(null);
   const form = useContext(EditableContext)!;
-
+  const t = useTranslations();
+  const customMessage = t('variables.validationMessage');
   useEffect(() => {
     if (editing) {
       inputRef.current?.focus();
@@ -78,7 +80,7 @@ const EditableCell: FC<PropsWithChildren<EditableCellProps>> = ({
       <Form.Item
         style={{ margin: 0 }}
         name={dataIndex}
-        rules={[{ required: true, message: `${title} is required.` }]}
+        rules={[{ required: true, message: customMessage }]}
       >
         <Input ref={inputRef} onPressEnter={save} onBlur={save} />
       </Form.Item>
