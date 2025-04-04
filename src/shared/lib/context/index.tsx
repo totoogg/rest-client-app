@@ -22,7 +22,7 @@ export const UserProvider = ({ children }: { children: ReactElement }) => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         firebaseUser.getIdToken().then(() => {
-          setUser(firebaseUser.email);
+          setUser(firebaseUser.displayName || firebaseUser.email);
         });
       } else {
         setUser(null);

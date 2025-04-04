@@ -31,5 +31,14 @@
     "serverError": "Server error",
     "requestError": "Invalid request",
     "networkError": "Network error. Could not send request"
+  },
+  "auth": {
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "lastName": "Last name",
+    "firstName": "First name"
   }
 }
