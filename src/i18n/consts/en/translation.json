@@ -42,6 +42,13 @@
     "firstName": "First name"
   },
   "variables": {
-    "validationMessage": " {{title}} is required."
+    "variableField": "Variable",
+    "initialValueField": "Initial value",
+    "operationField": "Operation",
+    "validationMessage": " is required.",
+    "isDelete": "Sure to delete?",
+    "buttonDelete": "Delete",
+    "tooltipValue": "Enter value",
+    "buttonAddNewRow": "Add a row"
   }
 }

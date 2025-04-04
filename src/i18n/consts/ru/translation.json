@@ -42,6 +42,13 @@
     "firstName": "Имя"
   },
   "variables": {
-    "validationMessage": " {{title}} обязательное поле"
+    "variableField": "Переменная",
+    "initialValueField": "Значение",
+    "operationField": "Операция",
+    "validationMessage": " обязательное поле",
+    "isDelete": "Точно удалить?",
+    "buttonDelete": "Удалить",
+    "tooltipValue": "Введите значение",
+    "buttonAddNewRow": "Добавить новую строку"
   }
 }
