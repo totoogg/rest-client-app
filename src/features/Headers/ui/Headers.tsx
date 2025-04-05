@@ -23,22 +23,30 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
   }, [form, headers?.dirt]);
 
   const handleChangeHeader = () => {
-    const headers = form
-      .getFieldsValue(['headers', 'key', 'value'])
-      .headers.map(
-        (el: { key: string | undefined; value: string | undefined }) => {
-          const obj = el ?? {};
+    let timerId = '' as unknown as NodeJS.Timeout;
 
-          return {
-            key: obj.key ?? '',
-            value: obj.value ?? '',
-          };
-        }
-      );
-    setHeaders?.((el) => ({
-      clear: structuredClone(el.clear),
-      dirt: headers,
-    }));
+    return () => {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => {
+        const headers = form
+          .getFieldsValue(['headers', 'key', 'value'])
+          .headers.map(
+            (el: { key: string | undefined; value: string | undefined }) => {
+              const obj = el ?? {};
+
+              return {
+                key: obj.key ?? '',
+                value: obj.value ?? '',
+              };
+            }
+          );
+
+        setHeaders?.((el) => ({
+          clear: structuredClone(el.clear),
+          dirt: headers,
+        }));
+      }, 300);
+    };
   };
 
   return (
@@ -46,7 +54,7 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
       <Form
         form={form}
         name="dynamic_form_nest_item"
-        onChange={handleChangeHeader}
+        onChange={handleChangeHeader()}
         className={styles.wrapper}
         autoComplete="off"
       >

@@ -1,7 +1,7 @@
 import { regExp, replaceVariable, RestClientContext } from '@/shared';
 import { useContext, useEffect } from 'react';
 
-export const useValidVariable = (input: string) => {
+export const useValidVariable = (input: string, startChange: boolean) => {
   const { setUrl, variables, setError } = useContext(RestClientContext);
 
   useEffect(() => {
@@ -34,6 +34,14 @@ export const useValidVariable = (input: string) => {
         }));
         setUrl?.(url);
       }
+
+      if (startChange) {
+        if (input.length === 0) {
+          setError?.((el) => ({ ...el, inputValid: true }));
+        } else {
+          setError?.((el) => ({ ...el, inputValid: false }));
+        }
+      }
     }
 
     const id = setTimeout(() => {
@@ -43,5 +51,5 @@ export const useValidVariable = (input: string) => {
     return () => {
       clearTimeout(id);
     };
-  }, [input, setError, setUrl, variables]);
+  }, [input, setError, setUrl, startChange, variables]);
 };
