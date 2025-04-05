@@ -12,10 +12,9 @@ export const getVariablesFromLocalStore = (): IVariablesFromLocalStore => {
     const user = getCurrientUser();
 
     if (user) {
-      const storedData = localStorage.getItem('dbRenderCrew');
-      const variables = storedData ? JSON.parse(storedData) : {};
-
-      data = { ...variables, ...user.variables };
+      const variables = JSON.parse(localStorage.getItem('dbRenderCrew')!)[user]
+        .variables as IVariablesFromLocalStore;
+      data = variables;
     }
   }
 
