@@ -20,3 +20,7 @@ export interface EditableCellProps {
 }
 
 export type ColumnTypes = Exclude<TableProps<Item>['columns'], undefined>;
+
+export interface IVariablesFromLocalStore {
+  [key: string]: string;
+}

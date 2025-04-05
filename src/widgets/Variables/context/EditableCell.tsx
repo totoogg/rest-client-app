@@ -21,6 +21,9 @@ const EditableCell: FC<PropsWithChildren<EditableCellProps>> = ({
   ...restProps
 }) => {
   const [editing, setEditing] = useState(false);
+  // ругается на Input не знаю что делать(
+  //     "Input" относится к значению, но здесь используется как тип. Возможно, вы имели в виду "typeof Input"?ts(2749)
+  // type Input = /*unresolved*/ any
   const inputRef = useRef<Input>(null);
   const form = useContext(EditableContext)!;
   const t = useTranslations();

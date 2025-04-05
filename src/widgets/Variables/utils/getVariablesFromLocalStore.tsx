@@ -1,38 +1,24 @@
-//   const obj = {
-//     'margobraun777@gmail.com': {
-//       variables: {
-//         proxy: 'husdfoufdgn',
-//         hgfmdk: 'sdgdfgf',
-//         ssfsdhdjk: 'dsszd',
-//       },
-//       history: [],
-//     },
-//   };
-import { Item } from '../model/dataVariables';
-
-interface IVariablesFromLocalStore {
-  [key: string]: string;
-}
+import { Item, IVariablesFromLocalStore } from '../model/dataVariables';
 
 const getCurrientUser = () => {
-  let user;
-  if (typeof window !== 'undefined') {
-    user = JSON.parse(localStorage.getItem('userRenderCrew')!).user;
-  }
+  const user = JSON.parse(localStorage.getItem('userRenderCrew') || '{}').user;
   return user;
 };
 
-export const getVariablesFromLocalStore = () => {
+export const getVariablesFromLocalStore = (): IVariablesFromLocalStore => {
   let data: IVariablesFromLocalStore = {};
+
   if (typeof window !== 'undefined') {
     const user = getCurrientUser();
+
     if (user) {
-      const variables = JSON.parse(localStorage.getItem('dbRenderCrew')!)[user]
-        .variables as IVariablesFromLocalStore;
-      data = variables;
-      console.log('data', data);
+      const storedData = localStorage.getItem('dbRenderCrew');
+      const variables = storedData ? JSON.parse(storedData) : {};
+
+      data = { ...variables, ...user.variables };
     }
   }
+
   return data;
 };
 
@@ -55,30 +41,17 @@ export const convertVariablesToObject = (
   }, {} as IVariablesFromLocalStore);
 };
 
-// const mokedata = [
-//   {
-//     key: '0',
-//     variable: 'url',
-//     initialValue: 'https:/testing',
-//   },
-//   {
-//     key: '1',
-//     variable: 'First name',
-//     initialValue: 'params',
-//   },
-// ];
-
 export const addDataVariablesToLocalStore = (newValueVariables: Item[]) => {
   const user = getCurrientUser();
   const dataAllFordbRenderCrew = JSON.parse(
     localStorage.getItem('dbRenderCrew')!
   );
   const convertToObj = convertVariablesToObject(newValueVariables);
-  const oldDataVariables = dataAllFordbRenderCrew[user].variables;
+  //   const oldDataVariables = dataAllFordbRenderCrew[user].variables;
   dataAllFordbRenderCrew[user].variables = convertToObj;
 
-  console.log('oldDataVariables', oldDataVariables);
-  console.log('convertToObj', convertToObj);
+  //   console.log('oldDataVariables', oldDataVariables);
+  //   console.log('convertToObj', convertToObj);
   const newData = JSON.stringify(dataAllFordbRenderCrew);
   localStorage.setItem('dbRenderCrew', newData);
 };
