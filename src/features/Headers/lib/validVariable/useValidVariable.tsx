@@ -25,7 +25,7 @@ export const useValidVariable = () => {
             headersValidVariable: '',
           }));
           setHeaders?.((el) => ({
-            ...el,
+            dirt: structuredClone(el.dirt),
             clear: (res.res as string)
               .split(', ')
               .map((el) => el.split(','))
@@ -37,10 +37,7 @@ export const useValidVariable = () => {
           ...error,
           headersValidVariable: '',
         }));
-        setHeaders?.((el) => ({
-          ...el,
-          clear: headers?.dirt || [],
-        }));
+        setHeaders?.({ dirt: headers?.dirt || [], clear: headers?.dirt || [] });
       }
     }
 

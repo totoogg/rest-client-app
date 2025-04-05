@@ -35,7 +35,10 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
           };
         }
       );
-    setHeaders?.((el) => ({ ...el, dirt: headers }));
+    setHeaders?.((el) => ({
+      clear: structuredClone(el.clear),
+      dirt: headers,
+    }));
   };
 
   return (
