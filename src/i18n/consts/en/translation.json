@@ -33,7 +33,9 @@
     "networkError": "Network error. Could not send request"
   },
   "history": {
-    "title": "History Requests"
+    "title": "History Requests",
+    "emptyTitle": "You haven't executed any requests",
+    "emptySuggest": "It's empty here. Try:"
   },
   "auth": {
     "noAccount": "Don't have an account?",

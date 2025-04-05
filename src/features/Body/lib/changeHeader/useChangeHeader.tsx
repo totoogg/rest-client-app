@@ -12,7 +12,7 @@ export const useChangeHeader = (selectBody: string) => {
           el.key === 'Content-Type' &&
           (el.value === 'application/json' || el.value === 'text/plain')
       );
-      console.log('index', index);
+
       if (index < 0 && selectBody !== 'none') {
         const header = {
           key: 'Content-Type',
