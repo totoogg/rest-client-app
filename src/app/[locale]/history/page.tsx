@@ -1,7 +1,7 @@
 import { History } from '@/widgets';
 import { ConfigProvider } from 'antd';
 
-export default async function Page() {
+export default function Page() {
   return (
     <ConfigProvider
       theme={{
