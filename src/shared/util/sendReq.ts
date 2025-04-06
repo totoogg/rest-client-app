@@ -20,11 +20,14 @@ export async function sendReq(data: string) {
   if (currentURL.query.size > 0) {
     currentURL.query
       .entries()
-      .forEach((el) =>
-        myHeaders.append(
-          decodeURIComponent(el[0] as string),
-          decodeURIComponent(el[1] as string)
-        )
+      .forEach(
+        (el) =>
+          el[0] &&
+          el[1] &&
+          myHeaders.append(
+            decodeURIComponent(el[0] as string),
+            decodeURIComponent(el[1] as string)
+          )
       );
   }
 
