@@ -45,6 +45,8 @@ beforeEach(() => {
     useTranslations: () => (key: string) => key,
   }));
 
+  global.clearTimeout = vi.fn();
+
   vi.useFakeTimers();
 });
 

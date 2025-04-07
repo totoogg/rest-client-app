@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { History } from '../../widgets';
 import * as hooks from '../../widgets/History/lib';
 import { IHistoryState } from '../../widgets/History/model/typeState';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import React, { act } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '../../i18n/consts/en/translation.json';
@@ -21,6 +21,10 @@ const mockHistory: IHistoryState[] = [
     textBody: undefined,
   },
 ];
+
+beforeEach(() => {
+  global.clearTimeout = vi.fn();
+});
 
 afterEach(() => {
   vi.clearAllMocks();

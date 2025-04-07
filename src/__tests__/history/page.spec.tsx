@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Page from '../../app/[locale]/history/page';
 import { act } from 'react';
@@ -14,6 +14,10 @@ vi.mock('@/widgets', async () => {
     ...actual,
     History: () => <div data-testid="history-component">Mock History</div>,
   };
+});
+
+beforeEach(() => {
+  global.clearTimeout = vi.fn();
 });
 
 afterEach(() => {

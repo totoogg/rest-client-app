@@ -1,6 +1,10 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useGetHistory } from '../../widgets/History/lib';
+
+beforeEach(() => {
+  global.clearTimeout = vi.fn();
+});
 
 afterEach(() => {
   vi.clearAllMocks();

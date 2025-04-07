@@ -30,6 +30,7 @@ beforeEach(() => {
   vi.mock('next-intl', () => ({
     useTranslations: () => (key: string) => key,
   }));
+  global.clearTimeout = vi.fn();
 
   const mockStorage = {
     userRenderCrew: JSON.stringify({ user: 'test@example.com' }),
