@@ -55,12 +55,14 @@ const mockReplaceState = vi.fn();
 const mockSetMethod = vi.fn();
 const mockSetError = vi.fn();
 const mockSetResponse = vi.fn();
+const mockSetUrl = vi.fn();
 
 const renderComponent = (inputValid: boolean = false) =>
   render(
     <ConfigProvider>
       <RestClientContext.Provider
         value={{
+          setUrl: mockSetUrl,
           method: 'GET',
           setMethod: mockSetMethod,
           setError: mockSetError,
@@ -84,6 +86,7 @@ describe('UrlLine Component', () => {
   it('should render correctly', () => {
     const { container } = renderComponent();
     expect(container).toMatchSnapshot();
+    expect(mockSetUrl).toHaveBeenCalledWith('test-url');
   });
 
   it('input change and validation', async () => {
