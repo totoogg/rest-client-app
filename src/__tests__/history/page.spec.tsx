@@ -8,15 +8,14 @@ const whenStable = async () =>
     await new Promise((resolve) => setTimeout(resolve, 0));
   });
 
-vi.mock('@/widgets', async () => {
-  const actual = await vi.importActual('@/widgets');
-  return {
-    ...actual,
-    History: () => <div data-testid="history-component">Mock History</div>,
-  };
-});
-
 beforeEach(() => {
+  vi.mock('@/widgets', async () => {
+    const actual = await vi.importActual('@/widgets');
+    return {
+      ...actual,
+      History: () => <div data-testid="history-component">Mock History</div>,
+    };
+  });
   global.clearTimeout = vi.fn();
 });
 
