@@ -6,6 +6,7 @@ import styles from './History.module.css';
 import { IHistoryState } from '../model/typeState';
 import { useGetHistory } from '../lib';
 import { useTranslations } from 'next-intl';
+import { ConfigProvider } from 'antd';
 
 export const History = () => {
   const [history, setHistory] = React.useState<IHistoryState[]>([]);
@@ -17,7 +18,16 @@ export const History = () => {
   }
 
   return (
-    <>
+    <ConfigProvider
+      theme={{
+        components: {
+          Divider: {
+            lineWidth: 2,
+            colorSplit: '#ffec3d',
+          },
+        },
+      }}
+    >
       <h2>{t('history.title')}</h2>
       <div className={styles.wrapper}>
         {history.map((item) => (
@@ -29,6 +39,6 @@ export const History = () => {
           />
         ))}
       </div>
-    </>
+    </ConfigProvider>
   );
 };

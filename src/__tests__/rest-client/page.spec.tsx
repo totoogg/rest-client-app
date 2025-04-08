@@ -6,8 +6,18 @@ import { render } from '@testing-library/react';
 const mockParseUrl = vi.mocked(parseUrl);
 
 beforeEach(() => {
-  vi.mock('@/widgets', () => ({
-    RestClient: () => <div data-testid="rest-client">RestClient</div>,
+  vi.mock('next/dynamic', () => ({
+    default: vi.fn().mockImplementation(() => {
+      const Component = vi.fn(() => {
+        const LoadedComponent = vi
+          .fn()
+          .mockImplementation(() => (
+            <div data-testid="rest-client">RestClient</div>
+          ));
+        return <LoadedComponent />;
+      });
+      return Component;
+    }),
   }));
 
   vi.mock('@/shared', () => ({

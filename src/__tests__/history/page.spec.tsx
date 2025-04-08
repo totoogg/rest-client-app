@@ -9,13 +9,20 @@ const whenStable = async () =>
   });
 
 beforeEach(() => {
-  vi.mock('@/widgets', async () => {
-    const actual = await vi.importActual('@/widgets');
-    return {
-      ...actual,
-      History: () => <div data-testid="history-component">Mock History</div>,
-    };
-  });
+  vi.mock('next/dynamic', () => ({
+    default: vi.fn().mockImplementation(() => {
+      const Component = vi.fn(() => {
+        const LoadedComponent = vi
+          .fn()
+          .mockImplementation(() => (
+            <div data-testid="history-component">Mock History</div>
+          ));
+        return <LoadedComponent />;
+      });
+      return Component;
+    }),
+  }));
+
   global.clearTimeout = vi.fn();
 });
 
@@ -23,12 +30,15 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-describe('Page Component', () => {
-  it('should handle component correctly', async () => {
+describe('Page component', () => {
+  it('render dynamic History component', async () => {
     render(<Page />);
+
+    const historyComponent = await screen.findByTestId('history-component');
 
     await whenStable();
 
-    expect(screen.getByTestId('history-component')).toBeInTheDocument();
+    expect(historyComponent).toBeInTheDocument();
+    expect(historyComponent.textContent).toBe('Mock History');
   });
 });
