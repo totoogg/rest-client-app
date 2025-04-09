@@ -24,7 +24,10 @@ export const useStartHeaders = (searchParams: {
         })
         .flat();
 
-      setHeaders?.({ clear: headersArr, dirt: headersArr });
+      setHeaders?.({
+        clear: structuredClone(headersArr),
+        dirt: structuredClone(headersArr),
+      });
     }
   }, [searchParams, setHeaders]);
 };
