@@ -8,6 +8,7 @@ import { Header, Footer } from '@/widgets';
 import type { Metadata } from 'next';
 import { LanguageSelectProps } from '@/i18n/model/types';
 import { UserProvider } from '@/shared/lib/context';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 export const metadata: Metadata = {
   title: 'REST Client',
@@ -30,15 +31,17 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <UserProvider>
-          <NextIntlClientProvider>
-            <AntdConfigProvider>
-              <Header locale={locale} />
-              <main>{children}</main>
-              <Footer />
-            </AntdConfigProvider>
-          </NextIntlClientProvider>
-        </UserProvider>
+        <AntdRegistry>
+          <UserProvider>
+            <NextIntlClientProvider>
+              <AntdConfigProvider>
+                <Header locale={locale} />
+                <main>{children}</main>
+                <Footer />
+              </AntdConfigProvider>
+            </NextIntlClientProvider>
+          </UserProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

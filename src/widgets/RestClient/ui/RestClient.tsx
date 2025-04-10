@@ -12,7 +12,7 @@ export const RestClient: FC<IRestClientProps> = ({ slug, searchParams }) => {
       wrap
       vertical={true}
       align="center"
-      className={styles.wrapper}
+      className={`${styles.wrapper} ${styles.restClient}`}
     >
       <UrlLine methodSelect={slug?.[0] || ''} urlServer={slug?.[1] || ''} />
       <Headers searchParams={searchParams} />
