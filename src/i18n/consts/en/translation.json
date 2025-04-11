@@ -45,5 +45,12 @@
     "confirmPassword": "Confirm password",
     "lastName": "Last name",
     "firstName": "First name"
+  },
+  "error": {
+    "happen": "Something went wrong!",
+    "try": "Try again",
+    "return": "Return Home",
+    "notFound": "Not Found",
+    "notResource": "Could not find requested resource"
   }
 }

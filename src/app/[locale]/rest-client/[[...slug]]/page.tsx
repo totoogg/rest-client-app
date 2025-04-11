@@ -1,13 +1,17 @@
-import { methods, parseUrl, RestClientProvider } from '@/shared';
-import { RestClient } from '@/widgets';
+import { methods, parseUrl } from '@/shared';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const RestClient = dynamic(() =>
+  import('../../../../widgets').then((mod) => mod.RestClient)
+);
 
 export default async function Page({
   params,
   searchParams,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string | string[] | undefined }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { slug } = await params;
@@ -21,9 +25,5 @@ export default async function Page({
     redirect(`/${pathSegments[0]}/${pathSegments[1]}/GET`);
   }
 
-  return (
-    <RestClientProvider>
-      <RestClient slug={slug} searchParams={searchParamsUrl} />
-    </RestClientProvider>
-  );
+  return <RestClient slug={slug} searchParams={searchParamsUrl} />;
 }

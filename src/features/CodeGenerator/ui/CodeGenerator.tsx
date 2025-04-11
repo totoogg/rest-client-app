@@ -57,7 +57,9 @@ export const CodeGenerator = () => {
             />
           ) : (
             <Typography.Text type="danger">
-              &nbsp;{error?.inputValid && `${t('restClient.urlErrorFill')}.`}{' '}
+              &nbsp;
+              {(error?.inputValid || url?.length === 0) &&
+                `${t('restClient.urlErrorFill')}.`}{' '}
               {(error?.inputBodyValidVariable || '').length > 0 &&
                 `${t('restClient.codeErrorBody')}.`}{' '}
               {(error?.inputValidVariable || '').length > 0 &&

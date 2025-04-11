@@ -11,9 +11,9 @@ export const useGetHistory = (
     const user = JSON.parse(userLocal)?.user;
 
     if (user) {
-      const history = JSON.parse(localStorage.getItem('dbRenderCrew') || '')[
-        user
-      ].history;
+      const history =
+        JSON.parse(localStorage.getItem('dbRenderCrew') || '{}')[user]
+          ?.history || [];
       const res = history.map((item: string, id: number) => {
         const currentURL = parseUrl(item);
         const slug = currentURL.pathSegments.slice(2, 5);

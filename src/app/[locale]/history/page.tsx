@@ -1,19 +1,9 @@
-import { History } from '@/widgets';
-import { ConfigProvider } from 'antd';
+import dynamic from 'next/dynamic';
 
-export default async function Page() {
-  return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Divider: {
-            lineWidth: 2,
-            colorSplit: '#ffec3d',
-          },
-        },
-      }}
-    >
-      <History />
-    </ConfigProvider>
-  );
+const History = dynamic(() =>
+  import('../../../widgets').then((mod) => mod.History)
+);
+
+export default function Page() {
+  return <History />;
 }
