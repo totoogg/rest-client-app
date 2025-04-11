@@ -21,12 +21,16 @@ export default async function LocaleLayout({
   }
 
   return (
-    <UserProvider>
-      <>
-        <Header locale={locale} />
-        <main>{children}</main>
-        <Footer />
-      </>
-    </UserProvider>
+    <html lang={locale}>
+      <body>
+        <UserProvider>
+          <>
+            <Header locale={locale} />
+            <main>{children}</main>
+            <Footer />
+          </>
+        </UserProvider>
+      </body>
+    </html>
   );
 }

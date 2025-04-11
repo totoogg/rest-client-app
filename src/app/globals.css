@@ -60,6 +60,13 @@ footer {
   justify-content: space-between;
 }
 
+header {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+
 main {
   /* background-color: rgba(26, 26, 248, 0.175); */
   background-color: var(--background-secondary);
@@ -108,7 +115,7 @@ main {
   min-width: 220px;
 }
 
-.vertical-divider {
+.vertical-divider.ant-divider-vertical {
   width: 2px;
   height: 34px;
   background-color: var(--text-secondary-color);

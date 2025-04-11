@@ -2,7 +2,6 @@
 
 import { Link } from '@/i18n/navigation';
 import { LanguageSelect } from '@/shared/LanguageSelect';
-import { MainLogo } from '@/shared/Logo';
 import { LanguageSelectProps } from '@/i18n/model/types';
 import { NavLink } from '@/shared/Link';
 import { useTranslations } from 'next-intl';
@@ -10,11 +9,17 @@ import { Button, Divider, Flex } from 'antd';
 import { signOut } from '@/shared/lib/auth';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/shared/lib/context';
+import { MainLogo } from '@/shared/Logo';
+import { MenuPopover } from '@/shared/MenuPopover';
+import { Menu } from '@/shared/Menu';
+import { useDevice } from '@/shared/hooks/use-device';
+import styles from './Header.module.css';
 
 export const Header = ({ locale }: LanguageSelectProps) => {
   const t = useTranslations();
   const router = useRouter();
   const user = useUser();
+  const isMobile = useDevice();
 
   const handleSignOut = async () => {
     await signOut();
@@ -24,9 +29,24 @@ export const Header = ({ locale }: LanguageSelectProps) => {
 
   return (
     <header>
-      <Link href="/">
-        <MainLogo />
-      </Link>
+      <>
+        {user && isMobile && <MenuPopover />}
+
+        <Flex
+          gap="middle"
+          justify="flex-start"
+          align="flex-end"
+          className={styles.menuWrapper}
+        >
+          {(!user || !isMobile) && (
+            <Link href="/">
+              <MainLogo />
+            </Link>
+          )}
+
+          {user && !isMobile && <Menu />}
+        </Flex>
+      </>
 
       <Flex gap="small" wrap>
         <LanguageSelect locale={locale} />

@@ -3,7 +3,7 @@ import '@ant-design/v5-patch-for-react-19';
 import { NextIntlClientProvider } from 'next-intl';
 import { AntdConfigProvider } from '@/shared/config/antd';
 import type { Metadata } from 'next';
-import { LanguageSelectProps } from '@/i18n/model/types';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 export const metadata: Metadata = {
   title: 'REST Client',
@@ -13,20 +13,14 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<LanguageSelectProps>;
 }) {
-  const { locale } = await params;
-
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider>
-          <AntdConfigProvider>{children}</AntdConfigProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <AntdRegistry>
+      <NextIntlClientProvider>
+        <AntdConfigProvider>{children}</AntdConfigProvider>
+      </NextIntlClientProvider>
+    </AntdRegistry>
   );
 }

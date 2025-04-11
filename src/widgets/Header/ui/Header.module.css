@@ -1,0 +1,8 @@
+.menuWrapper ul {
+  min-width: 350px;
+  width: 100%;
+}
+
+.menuWrapper {
+  width: calc(100% - 350px);
+}
