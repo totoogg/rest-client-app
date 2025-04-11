@@ -6,3 +6,16 @@
 .menuWrapper {
   width: calc(100% - 350px);
 }
+
+.header {
+  transition: all 0.3s ease;
+}
+
+.scroll {
+  background: #b7ee60;
+  height: 60px;
+}
+
+.logo {
+  transform: scale(0.8);
+}

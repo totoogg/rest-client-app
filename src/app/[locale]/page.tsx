@@ -6,12 +6,12 @@ export default function HomePage() {
   const t = useTranslations('homePage');
 
   return (
-    <>
+    <div className="main">
       <h1>{t('title')}</h1>
       <div>
         <AuthenticatedSection />
         {/* <UnauthorizedSection /> */}
       </div>
-    </>
+    </div>
   );
 }

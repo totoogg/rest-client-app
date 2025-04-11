@@ -4,7 +4,7 @@ import { MenuProps, Typography } from 'antd';
 import { Menu as AntdMenu } from 'antd';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import React, { ReactElement, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const { Text } = Typography;
@@ -58,6 +58,12 @@ export const Menu = ({ mode = 'horizontal' }: Props) => {
   );
 
   const [current, setCurrent] = useState<string>(defaultKey || '');
+
+  useEffect(() => {
+    if (pathname.slice(3).length === 0) {
+      setCurrent('');
+    }
+  }, [pathname]);
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);

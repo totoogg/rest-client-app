@@ -1,6 +1,6 @@
 import '@/app/globals.css';
 import '@ant-design/v5-patch-for-react-19';
-import { hasLocale } from 'next-intl';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Header, Footer } from '@/widgets';
@@ -23,13 +23,15 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <UserProvider>
-          <>
-            <Header locale={locale} />
-            <main>{children}</main>
-            <Footer />
-          </>
-        </UserProvider>
+        <NextIntlClientProvider>
+          <UserProvider>
+            <>
+              <Header locale={locale} />
+              <main>{children}</main>
+              <Footer />
+            </>
+          </UserProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
