@@ -1,33 +1,23 @@
-'use client';
-
-import { NavLink } from '@/shared/Link';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { useUser } from '@/shared/lib/context';
+import { Card, Col, Row } from 'antd';
 
 export const AuthenticatedSection = () => {
-  const t = useTranslations();
-  const user = useUser();
-
-  const username = user || 'Custom Username';
-
   return (
-    <>
-      <h2>
-        {t('homePage.startMessageUser')},
-        <span className="span-username">{username}</span>!
-      </h2>
-      <div className="buttons-block">
-        <Link href="/rest-client">
-          <NavLink text={t('navLink.restClient')} />
-        </Link>
-        <Link href="/history">
-          <NavLink text={t('navLink.history')} />
-        </Link>
-        <Link href="/auth/sign-in">
-          <NavLink text={t('navLink.variables')} />
-        </Link>
-      </div>
-    </>
+    <Row gutter={16}>
+      <Col span={8}>
+        <Card title="Uladzimir Hancharou" variant="borderless">
+          Card content
+        </Card>
+      </Col>
+      <Col span={8}>
+        <Card title="Liudmila Burbouskaya" variant="borderless">
+          Card content
+        </Card>
+      </Col>
+      <Col span={8}>
+        <Card title="Marharyta Parkalava" variant="borderless">
+          Card content
+        </Card>
+      </Col>
+    </Row>
   );
 };
