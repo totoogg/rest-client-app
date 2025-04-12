@@ -1,101 +1,129 @@
 'use client';
-import React, { FC, Key, useState } from 'react';
-import { Button, Popconfirm, Table } from 'antd';
-import EditableRow from '../context/EditableRow';
-import EditableCell from '../context/EditableCell';
+import React, { FC, useEffect, useState } from 'react';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Flex, Form, Input, Space, Typography } from 'antd';
 import {
   convertVariablesToArray,
   getVariablesFromLocalStore,
   addDataVariablesToLocalStore,
 } from '../utils/getVariablesFromLocalStore';
-import { ColumnTypes, Item } from '../model/dataVariables';
-import { useTranslations } from 'next-intl';
+import { VariableProps } from '../model/dataVariables';
+
+const { Title } = Typography;
 
 export const Variables: FC = () => {
-  const alldata = getVariablesFromLocalStore();
-  const arrData: Item[] = convertVariablesToArray(alldata);
-  const [dataSource, setDataSource] = useState<Item[]>(arrData);
-  const [count, setCount] = useState(arrData.length);
-  const t = useTranslations();
+  const [form] = Form.useForm();
+  const [variables, setVariables] = useState<VariableProps[]>([]);
 
-  const handleDelete = (key: Key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
+  useEffect(() => {
+    const dataObjectFromLocalStore = getVariablesFromLocalStore();
+    const initialSavedVariables = convertVariablesToArray(
+      dataObjectFromLocalStore
+    );
+
+    setVariables(initialSavedVariables);
+    form.setFieldsValue({ variable: initialSavedVariables });
+  }, [form]);
+
+  const handleBlur = (index: number) => {
+    const updatedVariables = [...variables];
+    const variable = updatedVariables[index];
+    console.log('variable', variable);
+    setVariables(updatedVariables);
   };
 
-  const handleAdd = () => {
-    const newData: Item = {
-      key: `${count}`,
-      variable: `Name ${count}`,
-      initialValue: t('variables.tooltipValue'),
+  const handleAddField = () => {
+    const newField: VariableProps = {
+      variable: '',
+      currentValue: '',
+      key: variables.length,
     };
-    setDataSource([...dataSource, newData]);
-    setCount(count + 1);
+    const updatedVariables = [...variables, newField];
+    setVariables(updatedVariables);
+    form.setFieldsValue({ variable: updatedVariables });
   };
 
-  const handleSave = (row: Item) => {
-    const newData = [...dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    newData.splice(index, 1, { ...newData[index], ...row });
-    setDataSource(newData);
-    addDataVariablesToLocalStore(newData);
+  const handleRemoveField = (index: number) => {
+    const newVariables = variables.filter((_, idx) => idx !== index);
+    setVariables(newVariables);
+    addDataVariablesToLocalStore(newVariables);
+    form.setFieldsValue({ variable: newVariables });
   };
 
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
+  const handleSubmit = () => {
+    const allValues = form.getFieldsValue();
+    console.log('Значения формы при отправке:', allValues);
+    addDataVariablesToLocalStore(allValues.variable);
   };
-
-  const columns = [
-    {
-      title: t('variables.variableField'),
-      dataIndex: 'variable',
-      editable: true,
-    },
-    {
-      title: t('variables.initialValueField'),
-      dataIndex: 'initialValue',
-      editable: true,
-    },
-    {
-      title: t('variables.operationField'),
-      dataIndex: 'operation',
-      render: (_: unknown, record: Item) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm
-            title={t('variables.isDelete')}
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <a>{t('variables.buttonDelete')}</a>
-          </Popconfirm>
-        ) : null,
-    },
-  ].map((col) => ({
-    ...col,
-    onCell: (record: Item) => ({
-      record,
-      editable: col.editable,
-      dataIndex: col.dataIndex,
-      title: col.title,
-      handleSave,
-    }),
-  }));
 
   return (
-    <>
-      <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
-        {t('variables.buttonAddNewRow')}
-      </Button>
-      <Table<Item>
-        style={{ width: '80%' }}
-        components={components}
-        rowClassName={() => 'editable-row'}
-        bordered
-        dataSource={dataSource}
-        columns={columns as ColumnTypes}
-      />
-    </>
+    <div>
+      <Form
+        form={form}
+        name="dynamic_form_nest_item"
+        style={{ maxWidth: 900 }}
+        autoComplete="off"
+        onFinish={handleSubmit}
+      >
+        <Form.List name="variable">
+          {(fields) => (
+            <>
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={handleAddField}
+                  block
+                  icon={<PlusOutlined />}
+                >
+                  Add field
+                </Button>
+              </Form.Item>
+              <Flex justify="space-around" align="center">
+                <Title level={5}>Variable</Title>
+                <Title level={5}>Current Value</Title>
+              </Flex>
+              {fields.map(({ key, name }, index) => (
+                <Space
+                  key={key}
+                  style={{ display: 'flex', marginBottom: 8 }}
+                  align="baseline"
+                >
+                  <Form.Item
+                    name={[name, 'variable']}
+                    rules={[
+                      { required: true, message: 'Missing naming variable' },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Variable"
+                      onBlur={() => handleBlur(index)}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name={[name, 'currentValue']}
+                    rules={[
+                      { required: true, message: 'Missing value variable' },
+                    ]}
+                  >
+                    <Input
+                      placeholder="Current value"
+                      onBlur={() => handleBlur(index)}
+                    />
+                  </Form.Item>
+                  <MinusCircleOutlined
+                    onClick={() => handleRemoveField(index)}
+                  />
+                </Space>
+              ))}
+            </>
+          )}
+        </Form.List>
+        <Form.Item style={{ width: '100%', textAlign: 'center' }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
