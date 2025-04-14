@@ -117,10 +117,6 @@ main {
   padding: 0 5px;
 }
 
-.auth-buttons {
-  min-width: 220px;
-}
-
 .vertical-divider.ant-divider-vertical {
   width: 2px;
   height: 34px;
