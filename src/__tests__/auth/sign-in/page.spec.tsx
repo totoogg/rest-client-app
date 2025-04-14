@@ -9,20 +9,15 @@ const whenStable = async () =>
   });
 
 beforeEach(() => {
-  vi.mock('next/dynamic', () => ({
-    default: vi.fn().mockImplementation(() => {
-      const Component = vi.fn(() => {
-        const LoadedComponent = vi
-          .fn()
-          .mockImplementation(() => (
-            <div data-testid="sign-in-component">Mock Sign In</div>
-          ));
-        return <LoadedComponent />;
-      });
-
-      return Component;
-    }),
-  }));
+  vi.mock('@/widgets/Authentification', async () => {
+    const actual = await vi.importActual('@/widgets/Authentification');
+    return {
+      ...actual,
+      SignInForm: () => (
+        <div data-testid="sign-in-component">Mock Sign In Form</div>
+      ),
+    };
+  });
 
   global.clearTimeout = vi.fn();
 });
@@ -40,6 +35,6 @@ describe('Page component', () => {
     await whenStable();
 
     expect(SignInComponent).toBeInTheDocument();
-    expect(SignInComponent.textContent).toBe('Mock Sign In');
+    expect(SignInComponent.textContent).toBe('Mock Sign In Form');
   });
 });

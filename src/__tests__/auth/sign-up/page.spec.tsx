@@ -3,13 +3,13 @@ import { render, screen } from '@testing-library/react';
 import Page from '@/app/[locale]/auth/sign-up/page';
 
 beforeEach(() => {
-  vi.mock('next/dynamic', () => ({
-    default: vi.fn().mockImplementation(() => {
-      return vi.fn(() => (
-        <div data-testid="sign-up-component">Mock Sign Up</div>
-      ));
-    }),
-  }));
+  vi.mock('@/widgets/Authentification', async () => {
+    const actual = await vi.importActual('@/widgets/Authentification');
+    return {
+      ...actual,
+      SignUpForm: () => <div data-testid="sign-up-component">Mock Sign Up</div>,
+    };
+  });
 });
 
 afterEach(() => {

@@ -6,6 +6,17 @@ import { signIn } from '@/shared/lib/auth';
 import { SignInForm } from '@/widgets/Authentification';
 import { useRouter } from 'next/navigation';
 
+global.matchMedia = vi.fn().mockImplementation((query) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+}));
+
 vi.mock('next/navigation', () => ({
   useRouter: vi.fn(() => ({
     push: vi.fn(),
@@ -45,7 +56,7 @@ describe('SignInForm', () => {
 
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByText(/sign in/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/sign-in/i)[1]).toBeInTheDocument();
   });
 
   it('submits form and redirects on success', async () => {
@@ -64,7 +75,7 @@ describe('SignInForm', () => {
       target: { value: 'Password123!' },
     });
 
-    fireEvent.click(screen.getByText(/sign in/i));
+    fireEvent.click(screen.getAllByText(/sign-in/i)[1]);
 
     await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/'));
   });
@@ -85,7 +96,7 @@ describe('SignInForm', () => {
       target: { value: 'WrongPassword123!' },
     });
 
-    fireEvent.click(screen.getByText(/sign in/i));
+    fireEvent.click(screen.getAllByText(/sign-in/i)[1]);
 
     await waitFor(() =>
       expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument()
