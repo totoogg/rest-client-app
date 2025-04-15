@@ -2,7 +2,8 @@
   "homePage": {
     "title": "Home Page",
     "startMessage": "Welcome",
-    "startMessageUser": "Welcome Back"
+    "startMessageUser": "Welcome Back",
+    "developers": "Developers"
   },
   "navLink": {
     "signIn": "Sign-In",

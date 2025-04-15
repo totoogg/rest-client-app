@@ -1,8 +1,8 @@
 import { Card, Divider, Typography } from 'antd';
-import Link from 'next/link';
 import React, { FC } from 'react';
 import styles from './ItemHistory.module.css';
 import { IItemHistoryProps } from '../model/ItemHistoryTypes';
+import { Link } from '@/shared';
 
 export const ItemHistory: FC<IItemHistoryProps> = ({ href, method, url }) => {
   return (
