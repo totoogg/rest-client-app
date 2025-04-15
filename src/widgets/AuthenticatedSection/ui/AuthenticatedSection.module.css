@@ -13,5 +13,5 @@
 }
 
 .list li::marker {
-  content: '- '
+  content: '- ';
 }
