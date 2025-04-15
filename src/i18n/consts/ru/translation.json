@@ -2,7 +2,8 @@
   "homePage": {
     "title": "Главная страница",
     "startMessage": "Приветствуем",
-    "startMessageUser": "С Возвращением"
+    "startMessageUser": "С Возвращением",
+    "developers": "Разработчики"
   },
   "navLink": {
     "signIn": "Войти",
