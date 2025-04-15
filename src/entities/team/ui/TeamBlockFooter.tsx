@@ -9,7 +9,7 @@ const TeamBlockFooter: FC<DataTeamProps> = ({ dataTeam }) => {
         dataTeam.map((person) => (
           <CustomLink
             href={person.linkGitHub}
-            text={person.fullName}
+            text={person.translateName}
             key={person.fullName}
           />
         ))}

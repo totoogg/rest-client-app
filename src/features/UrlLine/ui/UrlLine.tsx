@@ -28,11 +28,12 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
   const [buttonValid, setButtonValid] = useState(false);
   const [input, setInput] = useState('');
   const [loader, setLoader] = useState(false);
+  const [startChange, setStartChange] = useState(false);
 
   const { inputUrl } = useStartUrl(urlServer);
   const { valid } = useValidSend(input);
   useChangeUrl();
-  useValidVariable(input);
+  useValidVariable(input, startChange);
 
   useEffect(() => {
     setMethod?.(methodSelect);
@@ -48,12 +49,7 @@ export const UrlLine: FC<IUrlLineProps> = ({ methodSelect, urlServer }) => {
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-
-    if (e.target.value.length === 0) {
-      setError?.((el) => ({ ...el, inputValid: true }));
-    } else {
-      setError?.((el) => ({ ...el, inputValid: false }));
-    }
+    setStartChange(true);
   };
 
   const handleChange = (value: string) => {

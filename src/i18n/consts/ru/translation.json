@@ -2,7 +2,8 @@
   "homePage": {
     "title": "Главная страница",
     "startMessage": "Приветствуем",
-    "startMessageUser": "С Возвращением"
+    "startMessageUser": "С Возвращением",
+    "noneUserNickName": "Мистер Никто"
   },
   "navLink": {
     "signIn": "Войти",
@@ -47,13 +48,22 @@
     "firstName": "Имя"
   },
   "variables": {
+    "buttonAddNewRow": "Добавить поле",
     "variableField": "Переменная",
-    "initialValueField": "Значение",
-    "operationField": "Операция",
-    "validationMessage": " обязательное поле",
-    "isDelete": "Точно удалить?",
-    "buttonDelete": "Удалить",
-    "tooltipValue": "Введите значение",
-    "buttonAddNewRow": "Добавить новую строку"
+    "сurrentValueField": "Значение",
+    "savedVariables": "Сохранить переменные",
+    "validationMessage": " обязательное поле"
+  },
+  "error": {
+    "happen": "Что-то пошло не так!",
+    "try": "Попробовать снова",
+    "return": "Вернуться Домой",
+    "notFound": "Не найдено",
+    "notResource": "Не удалось найти запрошенный ресурс"
+  },
+  "teamTranslate": {
+    "vovaname": "Владимир Гончаров",
+    "ludaname": "Людмила Бурбовская",
+    "margoname": "Маргарита Паркалова"
   }
 }

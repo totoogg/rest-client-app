@@ -1,6 +1,5 @@
-.wrapper {
+.restClient.wrapper {
   width: 100%;
   max-width: 1400px;
-  padding: 10px;
   margin-bottom: auto;
 }

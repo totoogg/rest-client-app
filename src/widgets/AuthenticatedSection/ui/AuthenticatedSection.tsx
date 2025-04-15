@@ -1,15 +1,17 @@
 'use client';
 
-import { NavLink } from '@/shared/Link';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import useTeamData from '@/entities/team/consts/dataTeam';
+import { CardAboutTeammate } from '@/entities/team/ui/CardAboutTeammate';
 import { useUser } from '@/shared/lib/context';
+import { Col, Row } from 'antd';
+import { useTranslations } from 'next-intl';
 
 export const AuthenticatedSection = () => {
   const t = useTranslations();
   const user = useUser();
+  const teamData = useTeamData();
 
-  const username = user || 'Custom Username';
+  const username = user || t('homePage.noneUserNickName');
 
   return (
     <>
@@ -17,17 +19,14 @@ export const AuthenticatedSection = () => {
         {t('homePage.startMessageUser')},
         <span className="span-username">{username}</span>!
       </h2>
-      <div className="buttons-block">
-        <Link href="/rest-client">
-          <NavLink text={t('navLink.restClient')} />
-        </Link>
-        <Link href="/history">
-          <NavLink text={t('navLink.history')} />
-        </Link>
-        <Link href="/variables">
-          <NavLink text={t('navLink.variables')} />
-        </Link>
-      </div>
+      <Row gutter={16}>
+        {teamData &&
+          teamData.map((person) => (
+            <Col span={8} key={person.fullName}>
+              <CardAboutTeammate {...person} />
+            </Col>
+          ))}
+      </Row>
     </>
   );
 };

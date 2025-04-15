@@ -12,8 +12,10 @@ export enum TeamMemberGitHub {
 
 export type TeamPeople = {
   fullName: TeamMemberName;
+  translateName: string;
   linkGitHub: TeamMemberGitHub;
   isHead: boolean;
+  urlToPhoto: string;
 };
 
 export type DataTeamProps = {

@@ -2,7 +2,8 @@
   "homePage": {
     "title": "Home Page",
     "startMessage": "Welcome",
-    "startMessageUser": "Welcome Back"
+    "startMessageUser": "Welcome Back",
+    "noneUserNickName": "Mr. Nodody"
   },
   "navLink": {
     "signIn": "Sign-In",
@@ -47,13 +48,22 @@
     "firstName": "First name"
   },
   "variables": {
+    "buttonAddNewRow": "Add field",
     "variableField": "Variable",
-    "initialValueField": "Initial value",
-    "operationField": "Operation",
-    "validationMessage": " is required.",
-    "isDelete": "Sure to delete?",
-    "buttonDelete": "Delete",
-    "tooltipValue": "Enter value",
-    "buttonAddNewRow": "Add a row"
+    "сurrentValueField": "Current Value",
+    "savedVariables": "Save variables",
+    "validationMessage": " is required."
+  },
+  "error": {
+    "happen": "Something went wrong!",
+    "try": "Try again",
+    "return": "Return Home",
+    "notFound": "Not Found",
+    "notResource": "Could not find requested resource"
+  },
+  "teamTranslate": {
+    "vovaname": "Uladzimir Hancharou",
+    "ludaname": "Liudmila Burbouskaya",
+    "margoname": "Marharyta Parkalava"
   }
 }

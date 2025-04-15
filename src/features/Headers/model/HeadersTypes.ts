@@ -3,3 +3,8 @@ export interface IHeadersProps {
     [key: string]: string | string[] | undefined;
   };
 }
+
+export interface IHeaders {
+  key: string;
+  value: string;
+}
