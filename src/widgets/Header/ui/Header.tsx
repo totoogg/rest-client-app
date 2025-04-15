@@ -75,7 +75,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
         </Flex>
       </>
 
-      <Flex gap="small" wrap>
+      <Flex gap="small" wrap="nowrap">
         <LanguageSelect locale={locale} />
 
         <Divider type="vertical" className="vertical-divider" />
@@ -85,7 +85,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
             {t('navLink.sighOut')}
           </Button>
         ) : (
-          <Flex className="auth-buttons" justify="flex-end">
+          <Flex className="auth-buttons" justify="flex-end" wrap="nowrap">
             <Link href="/auth/sign-up">
               <NavLink text={t('navLink.signUp')} variant="link" />
             </Link>
