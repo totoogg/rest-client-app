@@ -1,0 +1,17 @@
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 350px;
+}
+
+.list {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.list li::marker {
+  content: '- ';
+}

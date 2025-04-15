@@ -2,10 +2,10 @@
 
 import { MenuProps, Typography } from 'antd';
 import { Menu as AntdMenu } from 'antd';
-import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { Link } from '@/shared/CustomLink';
 
 const { Text } = Typography;
 
@@ -62,6 +62,9 @@ export const Menu = ({ mode = 'horizontal' }: Props) => {
   useEffect(() => {
     if (pathname.slice(3).length === 0) {
       setCurrent('');
+    } else {
+      const url = pathname.split('/');
+      setCurrent(url[2]);
     }
   }, [pathname]);
 

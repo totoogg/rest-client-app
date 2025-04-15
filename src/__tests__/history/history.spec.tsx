@@ -23,6 +23,21 @@ const mockHistory: IHistoryState[] = [
 ];
 
 beforeEach(() => {
+  vi.mock('next/navigation', async () => {
+    const actual = await vi.importActual('next/navigation');
+    return {
+      ...actual,
+      useRouter: vi.fn(() => ({
+        replace: vi.fn(),
+        push: vi.fn(),
+        prefetch: vi.fn(),
+        refresh: vi.fn(),
+        forward: vi.fn(),
+        back: vi.fn(),
+      })),
+    };
+  });
+
   global.clearTimeout = vi.fn();
 });
 

@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from '@/i18n/navigation';
 import { LanguageSelect } from '@/shared/LanguageSelect';
 import { LanguageSelectProps } from '@/i18n/model/types';
 import { NavLink } from '@/shared/Link';
@@ -15,7 +14,7 @@ import { Menu } from '@/shared/Menu';
 import { useDevice } from '@/shared/hooks/use-device';
 import styles from './Header.module.css';
 import { useEffect, useState } from 'react';
-import { Loader } from '@/shared';
+import { Link, Loader } from '@/shared';
 
 export const Header = ({ locale }: LanguageSelectProps) => {
   const t = useTranslations();
@@ -75,7 +74,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
         </Flex>
       </>
 
-      <Flex gap="small" wrap>
+      <Flex gap="small" wrap="nowrap">
         <LanguageSelect locale={locale} />
 
         <Divider type="vertical" className="vertical-divider" />
@@ -85,7 +84,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
             {t('navLink.sighOut')}
           </Button>
         ) : (
-          <Flex className="auth-buttons" justify="flex-end">
+          <Flex className="auth-buttons" justify="flex-end" wrap="nowrap">
             <Link href="/auth/sign-up">
               <NavLink text={t('navLink.signUp')} variant="link" />
             </Link>

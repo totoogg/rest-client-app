@@ -4,3 +4,4 @@ export { replaceVariable } from './util/replaceVariable';
 export { RestClientProvider, RestClientContext } from './config/rest-client';
 export { methods, regExp } from './consts/rest-client';
 export { Loader } from './Loader';
+export { Link } from './CustomLink';

@@ -12,7 +12,7 @@ export const CardAboutTeammate = ({
   urlToPhoto,
 }: TeamPeople) => {
   return (
-    <Card title={translateName} variant="borderless">
+    <Card title={translateName} variant="borderless" style={{ width: '350px' }}>
       Card content
       <Image width={100} src={urlToPhoto} alt={fullName} />
       <Text>{fullName}</Text>
