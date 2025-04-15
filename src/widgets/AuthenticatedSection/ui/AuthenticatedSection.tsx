@@ -22,7 +22,9 @@ export const AuthenticatedSection = () => {
           <span className="span-username">{username}</span>!
         </h2>
       ) : (
-        <h2 className={styles.title}>{t('homePage.startMessage')}!</h2>
+        <h2 className={styles.title}>
+          {t('homePage.startMessage')} {username} !
+        </h2>
       )}
 
       <Flex vertical align="center">
@@ -30,31 +32,8 @@ export const AuthenticatedSection = () => {
         <Flex wrap gap={10} justify="center">
           {teamData &&
             teamData.map((person) => (
-              // <Col span={8} key={person.fullName}>
               <CardAboutTeammate key={person.fullName} {...person} />
-              // </Col>
             ))}
-          {/* <Card
-            className={styles.card}
-            title="Uladzimir Hancharou"
-            variant="borderless"
-          > */}
-          {/* content
-          </Card>
-          <Card
-            className={styles.card}
-            title="Liudmila Burbouskaya"
-            variant="borderless"
-          >
-            content */}
-          {/* </Card>
-          <Card
-            className={styles.card}
-            title="Marharyta Parkalava"
-            variant="borderless"
-          >
-            content
-          </Card> */}
         </Flex>
       </Flex>
     </>

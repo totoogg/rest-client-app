@@ -66,5 +66,29 @@
     "vovaname": "Uladzimir Hancharou",
     "ludaname": "Liudmila Burbouskaya",
     "margoname": "Marharyta Parkalava"
+  },
+  "Uladzimir Hancharou": {
+    "0": "Developed RESTful client pages and history.",
+    "1": "Implemented debounce to reduce the amount of rerendering.",
+    "2": "Implemented auto-generation of code via postman-codegen.",
+    "3": "Implemented display of the response from the server.",
+    "4": "Implemented support for variables in queries.",
+    "5": "Implemented query history using LocalStorage for storage and recovery."
+  },
+  "Liudmila Burbouskaya": {
+    "0": "Developed a login and register page.",
+    "1": "Added adaptive navigation to the header for mobile or desktop devices.",
+    "2": "Implemented Firebase for authentication.",
+    "3": "Implemented login and registration forms.",
+    "4": "Set up password validation.",
+    "5": "Implemented redirection upon successful login.",
+    "6": "Set up route protection."
+  },
+  "Marharyta Parkalava": {
+    "0": "Developed the main page, header/footer, page with variables.",
+    "1": "Implemented functions for storing variables in LocalStorage, as well as adding and deleting variables.",
+    "2": "Created a visual style.",
+    "3": "Created a design system of reusable components.",
+    "4": "Added support for 2 languages."
   }
 }

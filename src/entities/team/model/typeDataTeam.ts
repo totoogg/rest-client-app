@@ -16,6 +16,7 @@ export type TeamPeople = {
   linkGitHub: TeamMemberGitHub;
   isHead: boolean;
   urlToPhoto: string;
+  doneTasks: string[];
 };
 
 export type DataTeamProps = {

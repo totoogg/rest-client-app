@@ -6,8 +6,6 @@ import {
 
 import { useTranslations } from 'next-intl';
 
-// const t = useTranslations();
-
 const useTeamData = (): TeamPeople[] => {
   const t = useTranslations();
 
@@ -18,6 +16,14 @@ const useTeamData = (): TeamPeople[] => {
       linkGitHub: TeamMemberGitHub.totoogg,
       isHead: true,
       urlToPhoto: '../../Vova.jpg',
+      doneTasks: [
+        t('Uladzimir Hancharou.0'),
+        t('Uladzimir Hancharou.1'),
+        t('Uladzimir Hancharou.2'),
+        t('Uladzimir Hancharou.3'),
+        t('Uladzimir Hancharou.4'),
+        t('Uladzimir Hancharou.5'),
+      ],
     },
     {
       fullName: TeamMemberName.LiudmilaBurbouskaya,
@@ -25,6 +31,15 @@ const useTeamData = (): TeamPeople[] => {
       linkGitHub: TeamMemberGitHub.burbuha,
       isHead: false,
       urlToPhoto: '../../Luda.jpg',
+      doneTasks: [
+        t('Liudmila Burbouskaya.0'),
+        t('Liudmila Burbouskaya.1'),
+        t('Liudmila Burbouskaya.2'),
+        t('Liudmila Burbouskaya.3'),
+        t('Liudmila Burbouskaya.4'),
+        t('Liudmila Burbouskaya.5'),
+        t('Liudmila Burbouskaya.6'),
+      ],
     },
     {
       fullName: TeamMemberName.MarharytaParkalava,
@@ -32,6 +47,13 @@ const useTeamData = (): TeamPeople[] => {
       linkGitHub: TeamMemberGitHub.margaritabraun,
       isHead: false,
       urlToPhoto: '../Margo.jpg',
+      doneTasks: [
+        t('Marharyta Parkalava.0'),
+        t('Marharyta Parkalava.1'),
+        t('Marharyta Parkalava.2'),
+        t('Marharyta Parkalava.3'),
+        t('Marharyta Parkalava.4'),
+      ],
     },
   ];
 

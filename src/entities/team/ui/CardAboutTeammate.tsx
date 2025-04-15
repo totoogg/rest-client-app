@@ -1,8 +1,8 @@
-import { Card, Typography, Image } from 'antd';
+import { Card, Flex, Typography } from 'antd';
 import { TeamPeople } from '../model/typeDataTeam';
-// import { Space, Typography } from 'antd';
-
-const { Text, Link } = Typography;
+import { CheckCircleOutlined } from '@ant-design/icons';
+import Image from 'next/image';
+const { Text, Link, Paragraph } = Typography;
 
 export const CardAboutTeammate = ({
   fullName,
@@ -10,15 +10,38 @@ export const CardAboutTeammate = ({
   linkGitHub,
   isHead,
   urlToPhoto,
+  doneTasks,
 }: TeamPeople) => {
   return (
-    <Card title={translateName} variant="borderless" style={{ width: '350px' }}>
-      Card content
-      <Image width={100} src={urlToPhoto} alt={fullName} />
-      <Text>{fullName}</Text>
+    <Card
+      title={translateName}
+      variant="borderless"
+      style={{
+        width: '350px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+      cover={
+        <Image
+          alt={fullName}
+          src={urlToPhoto}
+          width={250}
+          height={135}
+          style={{ objectFit: 'cover' }}
+        />
+      }
+    >
       <Link>{linkGitHub}</Link>
       <Text>{isHead}</Text>
-      <Text>{urlToPhoto}</Text>
+      <Flex vertical>
+        {doneTasks.map((task) => (
+          <Flex key={`${task}`} gap="10px">
+            <CheckCircleOutlined twoToneColor="#52c41a" />
+            <Paragraph>{task}</Paragraph>
+          </Flex>
+        ))}
+      </Flex>
     </Card>
   );
 };
