@@ -49,7 +49,7 @@
     "firstName": "Имя"
   },
   "variables": {
-    "buttonAddNewRow": "Добавить поле",
+    "buttonAddNewRow": "Добавить Переменную",
     "variableField": "Переменная",
     "сurrentValueField": "Значение",
     "savedVariables": "Сохранить переменные",

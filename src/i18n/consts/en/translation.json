@@ -49,7 +49,7 @@
     "firstName": "First name"
   },
   "variables": {
-    "buttonAddNewRow": "Add field",
+    "buttonAddNewRow": "Add Variable",
     "variableField": "Variable",
     "сurrentValueField": "Current Value",
     "savedVariables": "Save variables",

@@ -34,7 +34,9 @@ export const Variables: FC = () => {
       currentValue: '',
       key: variables.length,
     };
-    const updatedVariables = [...variables, newField];
+    const fields = form.getFieldsValue().variable;
+    const updatedVariables = [...fields, newField];
+
     setVariables(updatedVariables);
     form.setFieldsValue({ variable: updatedVariables });
   };
@@ -42,7 +44,9 @@ export const Variables: FC = () => {
   const handleRemoveField = (index: number) => {
     const newVariables = variables.filter((_, idx) => idx !== index);
     setVariables(newVariables);
-    addDataVariablesToLocalStore(newVariables);
+    addDataVariablesToLocalStore(
+      newVariables.filter((el) => el.variable && el.currentValue)
+    );
     form.setFieldsValue({ variable: newVariables });
   };
 
