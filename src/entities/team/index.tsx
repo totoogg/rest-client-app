@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import TeamBlockFooter from '@/entities/team/ui/TeamBlockFooter';
-import dataTeam from '@/entities/team/consts/dataTeam';
+import useTeamData from './consts/dataTeam';
 
 const FooterTeamBlock: FC = () => {
-  return <TeamBlockFooter dataTeam={dataTeam} />;
+  const teamData = useTeamData();
+  return <TeamBlockFooter dataTeam={teamData} />;
 };
 
 export { FooterTeamBlock };
+export { CardAboutTeammate } from './ui/CardAboutTeammate';

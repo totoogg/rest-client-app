@@ -42,7 +42,7 @@ export const Menu = ({ mode = 'horizontal' }: Props) => {
       },
       {
         label: (
-          <Link href="/auth/sign-in">
+          <Link href="/variables">
             <Text strong>{t('navLink.variables')}</Text>
           </Link>
         ),

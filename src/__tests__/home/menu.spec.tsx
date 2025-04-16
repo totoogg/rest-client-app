@@ -106,7 +106,7 @@ describe('Menu component', () => {
     const links = screen.getAllByTestId('custom-link');
     expect(links[0]).toHaveAttribute('href', '/rest-client');
     expect(links[1]).toHaveAttribute('href', '/history');
-    expect(links[2]).toHaveAttribute('href', '/auth/sign-in');
+    expect(links[2]).toHaveAttribute('href', '/variables');
   });
 
   it('should handle root path correctly', () => {

@@ -43,6 +43,7 @@ const eslintConfig = [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       'react-refresh/only-export-components': 'off',
+      '@next/next/no-img-element': 'off',
       'react-compiler/react-compiler': 'error',
       'prettier/prettier': 'error',
     },

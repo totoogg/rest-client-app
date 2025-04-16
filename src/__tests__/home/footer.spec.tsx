@@ -42,6 +42,9 @@ beforeEach(() => {
       </div>
     ),
   }));
+  vi.mock('next-intl', () => ({
+    useTranslations: () => (key: string) => ({})[key],
+  }));
 });
 
 afterEach(() => {

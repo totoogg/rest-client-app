@@ -99,7 +99,7 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
                       remove(name);
                       handleChangeHeader();
                     }}
-                    className={styles.delete}
+                    style={{ fontSize: '32px', color: 'red' }}
                   />
                 </div>
               ))}

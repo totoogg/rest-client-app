@@ -18,6 +18,7 @@ beforeEach(() => {
       return translations[key];
     }),
   }));
+  vi.spyOn(console, 'error').mockReturnValue();
 });
 
 afterEach(() => {
@@ -48,7 +49,7 @@ describe('AuthenticatedSection component', () => {
 
     render(<AuthenticatedSection />);
 
-    expect(screen.getByText('Hello guest!')).toBeInTheDocument();
+    expect(screen.getByText('Hello guest !')).toBeInTheDocument();
     expect(screen.queryByTestId('username-span')).toBeNull();
   });
 
@@ -56,19 +57,22 @@ describe('AuthenticatedSection component', () => {
     const { container } = render(<AuthenticatedSection />);
 
     expect(screen.getByText('Developers')).toBeInTheDocument();
-    const cards = container.querySelectorAll(
-      'div[class*="ant-card-head-title"]'
-    );
+
+    const cards = container.querySelectorAll('div[class*="ant-card-cover"]');
+
     expect(cards).toHaveLength(3);
-    developers.forEach((name) => {
-      expect(screen.getByText(name)).toBeInTheDocument();
+
+    const images = container.querySelectorAll('img');
+
+    images.forEach((name, i) => {
+      expect(name.alt).toEqual(developers[i]);
     });
   });
 
   it('render cards', () => {
     const { container } = render(<AuthenticatedSection />);
 
-    const cards = container.querySelectorAll('div[class*="_card_"]');
+    const cards = container.querySelectorAll('div[class*="ant-card-cover"]');
 
     expect(cards).toHaveLength(3);
   });

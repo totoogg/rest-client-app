@@ -3,7 +3,8 @@
     "title": "Home Page",
     "startMessage": "Welcome",
     "startMessageUser": "Welcome Back",
-    "developers": "Developers"
+    "developers": "Developers",
+    "noneUserNickName": "Mr. Nodody"
   },
   "navLink": {
     "signIn": "Sign-In",
@@ -47,11 +48,51 @@
     "lastName": "Last name",
     "firstName": "First name"
   },
+  "variables": {
+    "buttonAddNewRow": "Add Variable",
+    "variableField": "Variable",
+    "сurrentValueField": "Current Value",
+    "savedVariables": "Save variables",
+    "validationMessage": "Field is required",
+    "noneSavedVariables": "None saved variables"
+  },
   "error": {
     "happen": "Something went wrong!",
     "try": "Try again",
     "return": "Return Home",
     "notFound": "Not Found",
     "notResource": "Could not find requested resource"
+  },
+  "teamTranslate": {
+    "vovaname": "Uladzimir Hancharou",
+    "ludaname": "Liudmila Burbouskaya",
+    "margoname": "Marharyta Parkalava",
+    "vovaAbout": "Aspiring React developer with foundational knowledge of JavaScript, HTML, and CSS. Gained experience through personal projects and online courses. Eager to develop skills in web application development and learn new technologies. Confident in my ability to work in a team and quickly adapt to new tools.",
+    "ludaAbout": "I have successfully completed IT-Academy courses on website and web application development using HTML, CSS, and JavaScript. My experience includes front-end development and maintaining existing applications with the Angular framework. I am organized, goal-oriented, tactful, and reliable. A strong team player, I am ready to take on responsibility, work diligently, and continue learning and improving my professional skills in web development. Currently, I am actively studying React to expand my expertise.",
+    "margoAbout": "I am passionate about combining programming with the design of beautiful frontend applications. Working with React, I discover new and exciting ways to bring my ideas to life. My goal is to create intuitive and appealing user interfaces, which allows me to showcase the beauty of JavaScript, HTML, and CSS."
+  },
+  "Uladzimir Hancharou": {
+    "0": "Developed RESTful client pages and history.",
+    "1": "Implemented debounce to reduce the amount of rerendering.",
+    "2": "Implemented auto-generation of code via postman-codegen.",
+    "3": "Implemented display of the response from the server.",
+    "4": "Implemented support for variables in queries.",
+    "5": "Implemented query history using LocalStorage for storage and recovery."
+  },
+  "Liudmila Burbouskaya": {
+    "0": "Developed a login and register page.",
+    "1": "Added adaptive navigation to the header for mobile or desktop devices.",
+    "2": "Implemented Firebase for authentication.",
+    "3": "Implemented login and registration forms.",
+    "4": "Set up password validation.",
+    "5": "Implemented redirection upon successful login.",
+    "6": "Set up route protection."
+  },
+  "Marharyta Parkalava": {
+    "0": "Developed the main page, header/footer, page with variables.",
+    "1": "Implemented functions for storing variables in LocalStorage, as well as adding and deleting variables.",
+    "2": "Created a visual style.",
+    "3": "Created a design system of reusable components.",
+    "4": "Added support for 2 languages."
   }
 }
