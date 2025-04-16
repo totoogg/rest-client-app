@@ -53,7 +53,7 @@
     "variableField": "Variable",
     "сurrentValueField": "Current Value",
     "savedVariables": "Save variables",
-    "validationMessage": "field is required",
+    "validationMessage": "Field is required",
     "noneSavedVariables": "None saved variables"
   },
   "error": {

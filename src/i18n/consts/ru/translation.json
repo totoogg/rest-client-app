@@ -53,7 +53,7 @@
     "variableField": "Переменная",
     "сurrentValueField": "Значение",
     "savedVariables": "Сохранить переменные",
-    "validationMessage": " обязательное поле",
+    "validationMessage": " Обязательное поле",
     "noneSavedVariables": "Нет сохраненных переменных"
   },
   "error": {

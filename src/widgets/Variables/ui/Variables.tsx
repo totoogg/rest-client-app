@@ -1,6 +1,6 @@
 'use client';
 import React, { FC, useEffect, useState } from 'react';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Flex, Form, Input, Space, Typography } from 'antd';
 import {
   convertVariablesToArray,
@@ -67,10 +67,10 @@ export const Variables: FC = () => {
         <Form.List name="variable">
           {(fields) => (
             <>
-              <Form.Item>
+              <Form.Item style={{ width: '100%', textAlign: 'center' }}>
                 <Button
                   type="dashed"
-                  style={{ width: 180 }}
+                  style={{ maxWidth: '480px' }}
                   onClick={handleAddField}
                   block
                   icon={<PlusOutlined />}
@@ -120,6 +120,7 @@ export const Variables: FC = () => {
                     width: '100%',
                     justifyContent: 'center',
                     gap: '20px',
+                    alignItems: 'center',
                   }}
                   align="baseline"
                 >
@@ -131,6 +132,7 @@ export const Variables: FC = () => {
                         message: t('variables.validationMessage'),
                       },
                     ]}
+                    style={{ margin: 0 }}
                   >
                     <Input placeholder={t('variables.variableField')} />
                   </Form.Item>
@@ -142,11 +144,13 @@ export const Variables: FC = () => {
                         message: t('variables.validationMessage'),
                       },
                     ]}
+                    style={{ margin: 0 }}
                   >
                     <Input placeholder={t('variables.сurrentValueField')} />
                   </Form.Item>
-                  <MinusCircleOutlined
+                  <CloseOutlined
                     onClick={() => handleRemoveField(index)}
+                    style={{ fontSize: '32px', color: 'red' }}
                   />
                 </Space>
               ))}
@@ -154,7 +158,9 @@ export const Variables: FC = () => {
           )}
         </Form.List>
         {variables.length !== 0 && (
-          <Form.Item style={{ width: '100%', textAlign: 'center' }}>
+          <Form.Item
+            style={{ width: '100%', textAlign: 'center', marginTop: '20px' }}
+          >
             <Button type="primary" htmlType="submit">
               {t('variables.savedVariables')}
             </Button>
