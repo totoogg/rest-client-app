@@ -24,6 +24,7 @@ const useTeamData = (): TeamPeople[] => {
         t('Uladzimir Hancharou.4'),
         t('Uladzimir Hancharou.5'),
       ],
+      aboutTeammate: t('teamTranslate.vovaAbout'),
     },
     {
       fullName: TeamMemberName.LiudmilaBurbouskaya,
@@ -40,6 +41,7 @@ const useTeamData = (): TeamPeople[] => {
         t('Liudmila Burbouskaya.5'),
         t('Liudmila Burbouskaya.6'),
       ],
+      aboutTeammate: t('teamTranslate.ludaAbout'),
     },
     {
       fullName: TeamMemberName.MarharytaParkalava,
@@ -54,6 +56,7 @@ const useTeamData = (): TeamPeople[] => {
         t('Marharyta Parkalava.3'),
         t('Marharyta Parkalava.4'),
       ],
+      aboutTeammate: t('teamTranslate.margoAbout'),
     },
   ];
 

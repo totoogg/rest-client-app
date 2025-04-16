@@ -17,6 +17,7 @@ export type TeamPeople = {
   isHead: boolean;
   urlToPhoto: string;
   doneTasks: string[];
+  aboutTeammate: string;
 };
 
 export type DataTeamProps = {

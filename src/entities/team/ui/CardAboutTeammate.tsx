@@ -1,8 +1,14 @@
-import { Card, Flex, Typography } from 'antd';
+import { Button, Card, Collapse, Flex, Typography } from 'antd';
 import { TeamPeople } from '../model/typeDataTeam';
-import { CheckCircleOutlined } from '@ant-design/icons';
-import Image from 'next/image';
-const { Text, Link, Paragraph } = Typography;
+import {
+  CaretRightOutlined,
+  CheckCircleTwoTone,
+  CrownTwoTone,
+  GithubFilled,
+  StarTwoTone,
+} from '@ant-design/icons';
+
+const { Text } = Typography;
 
 export const CardAboutTeammate = ({
   fullName,
@@ -11,10 +17,18 @@ export const CardAboutTeammate = ({
   isHead,
   urlToPhoto,
   doneTasks,
+  aboutTeammate,
 }: TeamPeople) => {
   return (
     <Card
       title={translateName}
+      extra={
+        isHead ? (
+          <CrownTwoTone twoToneColor="#52c41a" />
+        ) : (
+          <StarTwoTone twoToneColor="#ffec3d" />
+        )
+      }
       variant="borderless"
       style={{
         width: '350px',
@@ -22,8 +36,14 @@ export const CardAboutTeammate = ({
         flexDirection: 'column',
         alignItems: 'center',
       }}
+      styles={{
+        header: {
+          justifyContent: 'space-between',
+          width: '100%',
+        },
+      }}
       cover={
-        <Image
+        <img
           alt={fullName}
           src={urlToPhoto}
           width={250}
@@ -32,13 +52,21 @@ export const CardAboutTeammate = ({
         />
       }
     >
-      <Link>{linkGitHub}</Link>
-      <Text>{isHead}</Text>
+      <Collapse
+        bordered={false}
+        expandIcon={({ isActive }) => (
+          <CaretRightOutlined rotate={isActive ? 90 : 0} />
+        )}
+        items={[{ key: '1', label: 'About', children: <p>{aboutTeammate}</p> }]}
+      />
+      <Flex justify="center" style={{ padding: '5px 0' }}>
+        <Button icon={<GithubFilled />} href={linkGitHub} target="_blank" />
+      </Flex>
       <Flex vertical>
         {doneTasks.map((task) => (
           <Flex key={`${task}`} gap="10px">
-            <CheckCircleOutlined twoToneColor="#52c41a" />
-            <Paragraph>{task}</Paragraph>
+            <CheckCircleTwoTone twoToneColor="#52c41a" />
+            <Text>{task}</Text>
           </Flex>
         ))}
       </Flex>

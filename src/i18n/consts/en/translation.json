@@ -53,7 +53,8 @@
     "variableField": "Variable",
     "сurrentValueField": "Current Value",
     "savedVariables": "Save variables",
-    "validationMessage": " is required."
+    "validationMessage": "field is required",
+    "noneSavedVariables": "None saved variables"
   },
   "error": {
     "happen": "Something went wrong!",
@@ -65,7 +66,10 @@
   "teamTranslate": {
     "vovaname": "Uladzimir Hancharou",
     "ludaname": "Liudmila Burbouskaya",
-    "margoname": "Marharyta Parkalava"
+    "margoname": "Marharyta Parkalava",
+    "vovaAbout": "Aspiring React developer with foundational knowledge of JavaScript, HTML, and CSS. Gained experience through personal projects and online courses. Eager to develop skills in web application development and learn new technologies. Confident in my ability to work in a team and quickly adapt to new tools.",
+    "ludaAbout": "I have successfully completed IT-Academy courses on website and web application development using HTML, CSS, and JavaScript. My experience includes front-end development and maintaining existing applications with the Angular framework. I am organized, goal-oriented, tactful, and reliable. A strong team player, I am ready to take on responsibility, work diligently, and continue learning and improving my professional skills in web development. Currently, I am actively studying React to expand my expertise.",
+    "margoAbout": "I am passionate about combining programming with the design of beautiful frontend applications. Working with React, I discover new and exciting ways to bring my ideas to life. My goal is to create intuitive and appealing user interfaces, which allows me to showcase the beauty of JavaScript, HTML, and CSS."
   },
   "Uladzimir Hancharou": {
     "0": "Developed RESTful client pages and history.",

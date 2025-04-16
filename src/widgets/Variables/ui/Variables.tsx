@@ -11,7 +11,7 @@ import { VariableProps } from '../model/dataVariables';
 import styles from './Variables.module.css';
 import { useTranslations } from 'next-intl';
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 export const Variables: FC = () => {
   const [form] = Form.useForm();
@@ -27,13 +27,6 @@ export const Variables: FC = () => {
     setVariables(initialSavedVariables);
     form.setFieldsValue({ variable: initialSavedVariables });
   }, [form]);
-
-  const handleBlur = (index: number) => {
-    const updatedVariables = [...variables];
-    const variable = updatedVariables[index];
-    console.log('variable', variable);
-    setVariables(updatedVariables);
-  };
 
   const handleAddField = () => {
     const newField: VariableProps = {
@@ -55,7 +48,6 @@ export const Variables: FC = () => {
 
   const handleSubmit = () => {
     const allValues = form.getFieldsValue();
-    console.log('Значения формы при отправке:', allValues);
     addDataVariablesToLocalStore(allValues.variable);
   };
 
@@ -82,31 +74,48 @@ export const Variables: FC = () => {
                   {t('variables.buttonAddNewRow')}
                 </Button>
               </Form.Item>
-              <Flex
-                // justify="space-around"
-                justify="center"
-                align="center"
-                gap="60px"
-                // style={{ width: '100%' }}
-              >
-                <Title level={5} style={{ margin: 0, padding: '0 30px' }}>
-                  {t('variables.variableField')}
-                </Title>
-                <Title level={5} style={{ margin: 0, padding: '0 30px' }}>
-                  {t('variables.сurrentValueField')}
-                </Title>
-              </Flex>
+              {variables.length > 0 ? (
+                <Flex
+                  justify="center"
+                  align="center"
+                  gap="20px"
+                  style={{ marginRight: '40px' }}
+                >
+                  <Title
+                    level={5}
+                    style={{
+                      margin: 0,
+                      width: '204px',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {t('variables.variableField')}
+                  </Title>
+                  <Title
+                    level={5}
+                    style={{
+                      margin: 0,
+                      width: '204px',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {t('variables.сurrentValueField')}
+                  </Title>
+                </Flex>
+              ) : (
+                <Flex>
+                  <Paragraph> {t('variables.noneSavedVariables')}</Paragraph>
+                </Flex>
+              )}
               {fields.map(({ key, name }, index) => (
                 <Space
                   key={key}
                   style={{
                     display: 'flex',
-                    // marginBottom: 8,
                     marginBottom: 0,
                     width: '100%',
                     justifyContent: 'center',
                     gap: '20px',
-                    // justifyContent: 'space-evenly',
                   }}
                   align="baseline"
                 >
@@ -119,10 +128,7 @@ export const Variables: FC = () => {
                       },
                     ]}
                   >
-                    <Input
-                      placeholder={t('variables.variableField')}
-                      onBlur={() => handleBlur(index)}
-                    />
+                    <Input placeholder={t('variables.variableField')} />
                   </Form.Item>
                   <Form.Item
                     name={[name, 'currentValue']}
@@ -133,10 +139,7 @@ export const Variables: FC = () => {
                       },
                     ]}
                   >
-                    <Input
-                      placeholder={t('variables.сurrentValueField')}
-                      onBlur={() => handleBlur(index)}
-                    />
+                    <Input placeholder={t('variables.сurrentValueField')} />
                   </Form.Item>
                   <MinusCircleOutlined
                     onClick={() => handleRemoveField(index)}
@@ -146,11 +149,13 @@ export const Variables: FC = () => {
             </>
           )}
         </Form.List>
-        <Form.Item style={{ width: '100%', textAlign: 'center' }}>
-          <Button type="primary" htmlType="submit">
-            {t('variables.savedVariables')}
-          </Button>
-        </Form.Item>
+        {variables.length !== 0 && (
+          <Form.Item style={{ width: '100%', textAlign: 'center' }}>
+            <Button type="primary" htmlType="submit">
+              {t('variables.savedVariables')}
+            </Button>
+          </Form.Item>
+        )}
       </Form>
     </div>
   );
