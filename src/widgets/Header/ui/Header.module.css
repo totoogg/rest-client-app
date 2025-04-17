@@ -9,6 +9,9 @@
 
 .header {
   transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .scroll {
@@ -18,4 +21,13 @@
 
 .logo {
   transform: scale(0.8);
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

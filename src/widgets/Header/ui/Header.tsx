@@ -54,47 +54,49 @@ export const Header = ({ locale }: LanguageSelectProps) => {
     <header
       className={[styles.header, isScrolled ? styles.scroll : ''].join(' ')}
     >
-      {loader && <Loader />}
-      <>
-        {user && isMobile && <MenuPopover />}
+      <div className={styles.wrapper}>
+        {loader && <Loader />}
+        <>
+          {user && isMobile && <MenuPopover />}
 
-        <Flex
-          gap="middle"
-          justify="flex-start"
-          align="flex-end"
-          className={styles.menuWrapper}
-        >
-          {(!user || !isMobile) && (
-            <Link href="/" className={isScrolled ? styles.logo : ''}>
-              <MainLogo />
-            </Link>
-          )}
+          <Flex
+            gap="middle"
+            justify="flex-start"
+            align="flex-end"
+            className={styles.menuWrapper}
+          >
+            {(!user || !isMobile) && (
+              <Link href="/" className={isScrolled ? styles.logo : ''}>
+                <MainLogo />
+              </Link>
+            )}
 
-          {user && !isMobile && <Menu />}
-        </Flex>
-      </>
-
-      <Flex gap="small" wrap="nowrap">
-        <LanguageSelect locale={locale} />
-
-        <Divider type="vertical" className="vertical-divider" />
-
-        {user ? (
-          <Button onClick={handleSignOut} shape="round">
-            {t('navLink.sighOut')}
-          </Button>
-        ) : (
-          <Flex className="auth-buttons" justify="flex-end" wrap="nowrap">
-            <Link href="/auth/sign-up">
-              <NavLink text={t('navLink.signUp')} variant="link" />
-            </Link>
-
-            <Link href="/auth/sign-in">
-              <NavLink text={t('navLink.signIn')} shape="round" />
-            </Link>
+            {user && !isMobile && <Menu />}
           </Flex>
-        )}
-      </Flex>
+        </>
+
+        <Flex gap="small" wrap="nowrap" align="center">
+          <LanguageSelect locale={locale} />
+
+          <Divider type="vertical" className="vertical-divider" />
+
+          {user ? (
+            <Button onClick={handleSignOut} shape="round">
+              {t('navLink.sighOut')}
+            </Button>
+          ) : (
+            <Flex className="auth-buttons" justify="flex-end" wrap="nowrap">
+              <Link href="/auth/sign-up">
+                <NavLink text={t('navLink.signUp')} variant="link" />
+              </Link>
+
+              <Link href="/auth/sign-in">
+                <NavLink text={t('navLink.signIn')} shape="round" />
+              </Link>
+            </Flex>
+          )}
+        </Flex>
+      </div>
     </header>
   );
 };
