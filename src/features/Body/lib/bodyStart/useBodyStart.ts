@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { RestClientContext } from '@/shared';
 
 export const useBodyStart = (
@@ -7,10 +6,10 @@ export const useBodyStart = (
   createBody: boolean,
   setInputBody: Dispatch<SetStateAction<string>>,
   setShowBody: Dispatch<SetStateAction<boolean>>,
-  setSelectBody: Dispatch<SetStateAction<string>>
+  setSelectBody: Dispatch<SetStateAction<string>>,
+  searchParams: { [key: string]: string | string[] | undefined }
 ) => {
   const { setBody } = useContext(RestClientContext);
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (bodyUrl && !createBody) {
@@ -18,10 +17,10 @@ export const useBodyStart = (
       setInputBody(textBody);
       setBody?.(textBody);
 
-      const search = searchParams.get('Content-Type');
+      const search = searchParams['Content-Type'];
 
-      if (search) {
-        const typeBody = search.startsWith('text') ? 'text' : 'json';
+      if (search && typeof search === 'string') {
+        const typeBody = search.startsWith('application') ? 'json' : 'text';
 
         if (typeBody === 'json') {
           try {

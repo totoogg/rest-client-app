@@ -18,7 +18,7 @@ export const RestClient: FC<IRestClientProps> = ({ slug, searchParams }) => {
       >
         <UrlLine methodSelect={slug?.[0] || ''} urlServer={slug?.[1] || ''} />
         <Headers searchParams={searchParams} />
-        <Body bodyUrl={slug?.[2] || ''} />
+        <Body bodyUrl={slug?.[2] || ''} searchParams={searchParams} />
         <CodeGenerator />
         <Response />
       </Flex>

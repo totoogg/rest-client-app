@@ -70,7 +70,10 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
               <Form.Item>
                 <Button
                   type="dashed"
-                  onClick={() => add()}
+                  onClick={() => {
+                    add();
+                    handleChangeHeader()();
+                  }}
                   block
                   icon={<PlusOutlined />}
                 >
@@ -97,7 +100,7 @@ export const Headers: FC<IHeadersProps> = ({ searchParams }) => {
                   <CloseOutlined
                     onClick={() => {
                       remove(name);
-                      handleChangeHeader();
+                      handleChangeHeader()();
                     }}
                     style={{ fontSize: '32px', color: 'red' }}
                   />

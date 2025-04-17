@@ -8,7 +8,7 @@ import { IBodyProps } from '../model/BodyTypes';
 import { useTranslations } from 'next-intl';
 import { useBodyStart, useChangeHeader, useValidVariable } from '../lib';
 
-export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
+export const Body: FC<IBodyProps> = ({ bodyUrl, searchParams }) => {
   const { setBody, error, setError } = useContext(RestClientContext);
   const t = useTranslations();
 
@@ -17,7 +17,14 @@ export const Body: FC<IBodyProps> = ({ bodyUrl }) => {
   const [createBody, setCreateBody] = useState(false);
   const [selectBody, setSelectBody] = useState('none');
 
-  useBodyStart(bodyUrl, createBody, setInputBody, setShowBody, setSelectBody);
+  useBodyStart(
+    bodyUrl,
+    createBody,
+    setInputBody,
+    setShowBody,
+    setSelectBody,
+    searchParams
+  );
   useValidVariable(inputBody, selectBody);
   useChangeHeader(selectBody);
 

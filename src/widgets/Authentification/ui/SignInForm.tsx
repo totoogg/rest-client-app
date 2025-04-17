@@ -40,7 +40,7 @@ export const SignInForm: React.FC = () => {
       const { email, password } = data;
       const token = await signIn(email, password);
       if (token) {
-        router.push('/');
+        router.refresh();
       }
     } catch (err) {
       setError((err as Error).message);

@@ -46,7 +46,7 @@ export const SignUpForm: React.FC = () => {
       const { email, password, firstName, lastName } = data;
       const token = await signUp(email, password, `${firstName} ${lastName}`);
       if (token) {
-        router.push('/');
+        router.refresh();
       }
     } catch (err) {
       setError((err as Error).message);

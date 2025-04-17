@@ -120,7 +120,6 @@ describe('SignUpForm', () => {
         'Password1!',
         'John Doe'
       );
-      expect(mockPush).toHaveBeenCalledWith('/');
     });
   });
 

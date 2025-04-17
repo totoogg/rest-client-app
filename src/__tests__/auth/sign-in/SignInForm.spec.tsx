@@ -76,8 +76,6 @@ describe('SignInForm', () => {
     });
 
     fireEvent.click(screen.getAllByText(/sign-in/i)[1]);
-
-    await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/'));
   });
 
   it('shows an error message on failure', async () => {

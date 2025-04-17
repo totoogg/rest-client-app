@@ -149,7 +149,7 @@ describe('Body component', () => {
             headers: { dirt: [], clear: [] },
           }}
         >
-          <Body bodyUrl={bodyUrl} />
+          <Body bodyUrl={bodyUrl} searchParams={{}} />
         </RestClientContext.Provider>
       </ConfigProvider>
     );
@@ -203,7 +203,7 @@ describe('Body component', () => {
             headers: { dirt: [], clear: [] },
           }}
         >
-          <Body bodyUrl="" />
+          <Body bodyUrl="" searchParams={{}} />
         </RestClientContext.Provider>
       </ConfigProvider>
     );
@@ -239,11 +239,11 @@ describe('useBodyStart', () => {
     const bodyUrl = btoa(encodeURIComponent('test'));
 
     renderHook(() =>
-      useBodyStart(bodyUrl, false, mockSetInput, mockSetShow, mockSetSelect)
+      useBodyStart(bodyUrl, false, mockSetInput, mockSetShow, mockSetSelect, {})
     );
 
     expect(mockSetInput).toHaveBeenCalledWith('test');
-    expect(mockSetSelect).toHaveBeenCalledWith('json');
+    expect(mockSetSelect).toHaveBeenCalledWith('text');
   });
 
   it('initialize bodyUrl', async () => {
@@ -251,7 +251,7 @@ describe('useBodyStart', () => {
     const bodyUrl = btoa(encodeURIComponent('test'));
 
     renderHook(() =>
-      useBodyStart(bodyUrl, false, mockSetInput, mockSetShow, mockSetSelect)
+      useBodyStart(bodyUrl, false, mockSetInput, mockSetShow, mockSetSelect, {})
     );
 
     expect(mockSetInput).toHaveBeenCalledWith('test');
@@ -271,7 +271,7 @@ describe('useBodyStart', () => {
     const bodyUrl = btoa(encodeURIComponent('test'));
 
     renderHook(() =>
-      useBodyStart(bodyUrl, false, mockSetInput, mockSetShow, mockSetSelect)
+      useBodyStart(bodyUrl, false, mockSetInput, mockSetShow, mockSetSelect, {})
     );
 
     expect(mockSetInput).toHaveBeenCalledWith('test');
@@ -358,6 +358,10 @@ describe('useChangeHeader', () => {
       },
     ]);
     expect(result.dirt).toEqual([
+      {
+        key: 'Content-Type',
+        value: 'application/json',
+      },
       {
         key: 'Authorization',
         value: 'Bearer token',
