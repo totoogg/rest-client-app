@@ -48,7 +48,7 @@ const useTeamData = (): TeamPeople[] => {
       translateName: t('teamTranslate.margoname'),
       linkGitHub: TeamMemberGitHub.margaritabraun,
       isHead: false,
-      urlToPhoto: '../Margo.jpg',
+      urlToPhoto: '../../Margo.jpg',
       doneTasks: [
         t('Marharyta Parkalava.0'),
         t('Marharyta Parkalava.1'),

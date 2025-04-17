@@ -6,6 +6,7 @@ import Loading2 from '../../app/[locale]/rest-client/[[...slug]]/loading';
 import Loading3 from '../../app/[locale]/history/loading';
 import Loading4 from '../../app/[locale]/auth/sign-in/loading';
 import Loading5 from '../../app/[locale]/auth/sign-up/loading';
+import Loading6 from '../../app/[locale]/variables/loading';
 
 beforeEach(() => {
   vi.useFakeTimers();
@@ -27,6 +28,7 @@ describe('Loading', () => {
     render(<Loading3 />);
     render(<Loading4 />);
     render(<Loading5 />);
+    render(<Loading6 />);
 
     expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
   });
@@ -38,12 +40,13 @@ describe('Loading', () => {
     render(<Loading3 />);
     render(<Loading4 />);
     render(<Loading5 />);
+    render(<Loading6 />);
 
     act(() => {
       vi.advanceTimersByTime(100);
     });
 
-    expect(screen.getAllByTestId('loader').length).toEqual(6);
+    expect(screen.getAllByTestId('loader').length).toEqual(7);
   });
 
   it('clean up timeout', () => {

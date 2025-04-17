@@ -1,6 +1,5 @@
 import { TeamMemberName, TeamPeople } from '../model/typeDataTeam';
 
-// getDataForTeammate
 interface getDataForTeammateProps {
   fullData: TeamPeople[];
   selectedPerson: TeamMemberName;

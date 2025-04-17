@@ -13,19 +13,13 @@ const handleAuth = async (userCredential: UserCredential, email: string) => {
   const token = await getIdToken(userCredential.user);
 
   if (token) {
-    const res = await fetch('/api/auth/setToken', {
+    await fetch('/api/auth/setToken', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ token }),
     });
-
-    if (res.ok) {
-      console.log('Token set in cookies');
-    } else {
-      console.error('Error setting token in cookies');
-    }
 
     localStorage.setItem(
       'userRenderCrew',

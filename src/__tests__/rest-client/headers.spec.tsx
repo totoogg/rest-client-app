@@ -98,7 +98,7 @@ describe('Headers component', () => {
     const { container, getByText, queryByPlaceholderText } = renderComponent();
 
     fireEvent.click(getByText('restClient.headers'));
-    fireEvent.click(container.querySelectorAll('span[class*="delete"]')[0]);
+    fireEvent.click(container.querySelectorAll('span[aria-label*="close"]')[0]);
 
     act(() => {
       vi.advanceTimersByTime(1000);
