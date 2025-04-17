@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Form,
@@ -48,10 +48,9 @@ export const AuthenticationForm = ({
   const [passwordStrength, setPasswordStrength] = useState(0);
   const password = Form.useWatch('password', form);
 
-  const changePasswordStrength = useCallback(
-    () => setPasswordStrength(evaluatePasswordStrength(password)),
-    [password]
-  );
+  useEffect(() => {
+    setPasswordStrength(evaluatePasswordStrength(password));
+  }, [password]);
 
   return (
     <Card title={title} variant="borderless">
@@ -70,11 +69,7 @@ export const AuthenticationForm = ({
             name={name}
             rules={[createYupSync(schema, name, form.getFieldsValue)]}
           >
-            {type === 'password' ? (
-              <Input.Password onChange={changePasswordStrength} />
-            ) : (
-              <Input />
-            )}
+            {type === 'password' ? <Input.Password /> : <Input />}
           </Form.Item>
         ))}
 

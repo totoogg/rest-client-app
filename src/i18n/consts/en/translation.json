@@ -46,7 +46,14 @@
     "password": "Password",
     "confirmPassword": "Confirm password",
     "lastName": "Last name",
-    "firstName": "First name"
+    "firstName": "First name",
+    "invalidEmail": "Invalid email address",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordLetter": "Password must contain at least one letter",
+    "passwordNumber": "Password must contain at least one number",
+    "passwordSpecial": "Password must contain at least one special character",
+    "passwordsMatch": "Passwords must match",
+    "required": "Field is required"
   },
   "variables": {
     "buttonAddNewRow": "Add Variable",
