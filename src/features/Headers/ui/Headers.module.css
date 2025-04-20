@@ -1,0 +1,21 @@
+.wrapper {
+  max-width: 600px;
+  width: 100%;
+}
+
+.error {
+  border: 1px solid red;
+  border-radius: 7px;
+}
+
+.form-line {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0;
+  gap: 8px;
+}
+
+.form-item {
+  flex: auto;
+  margin-bottom: 8px;
+}

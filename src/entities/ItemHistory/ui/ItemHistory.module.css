@@ -1,0 +1,22 @@
+.link {
+  text-decoration: none;
+}
+
+.title {
+  word-break: break-all;
+}
+
+.title-with-body {
+  margin-bottom: 10px;
+}
+
+.wrapper-body {
+  display: flex;
+}
+
+.code {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}

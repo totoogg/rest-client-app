@@ -1,0 +1,84 @@
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  firebaseSignOut,
+  getIdToken,
+  updateProfile,
+} from '@/shared/lib/firebase';
+import { UserCredential } from '@firebase/auth';
+import { updateDbRenderCrew } from '@/shared/util/updateDbRenderCrew';
+
+const handleAuth = async (userCredential: UserCredential, email: string) => {
+  const token = await getIdToken(userCredential.user);
+
+  if (token) {
+    await fetch('/api/auth/setToken', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    localStorage.setItem(
+      'userRenderCrew',
+      JSON.stringify({ user: email, token })
+    );
+    updateDbRenderCrew(email);
+  }
+
+  return token;
+};
+
+export const signIn = async (email: string, password: string) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+    return await handleAuth(userCredential, email);
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const signUp = async (
+  email: string,
+  password: string,
+  displayName: string
+) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+
+    await updateProfile(user, { displayName });
+
+    return await handleAuth(userCredential, email);
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const signOut = async () => {
+  try {
+    await firebaseSignOut(auth);
+
+    await fetch('/api/auth/deleteToken', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    localStorage.removeItem('userRenderCrew');
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};

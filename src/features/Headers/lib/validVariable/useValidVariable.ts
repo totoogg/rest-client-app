@@ -1,0 +1,52 @@
+import { regExp, replaceVariable, RestClientContext } from '@/shared';
+import { useContext, useEffect } from 'react';
+
+export const useValidVariable = () => {
+  const { setHeaders, setError, variables, headers } =
+    useContext(RestClientContext);
+
+  useEffect(() => {
+    function checkVariable() {
+      const headersStr =
+        headers?.dirt.map((el) => Object.values(el)).join(', ') || '';
+
+      if (regExp.test(headersStr)) {
+        const res = replaceVariable(headersStr, variables, regExp);
+        if (res.status === 'error') {
+          setError?.((error) => ({
+            ...error,
+            headersValidVariable: (res.res as string[]).join(', '),
+          }));
+        }
+
+        if (res.status === 'fulfilled') {
+          setError?.((error) => ({
+            ...error,
+            headersValidVariable: '',
+          }));
+          setHeaders?.((el) => ({
+            dirt: structuredClone(el.dirt),
+            clear: (res.res as string)
+              .split(', ')
+              .map((el) => el.split(','))
+              .map((el) => ({ key: el[0], value: el[1] })),
+          }));
+        }
+      } else {
+        setError?.((error) => ({
+          ...error,
+          headersValidVariable: '',
+        }));
+        setHeaders?.({ dirt: headers?.dirt || [], clear: headers?.dirt || [] });
+      }
+    }
+
+    const id = setTimeout(() => {
+      checkVariable();
+    }, 300);
+
+    return () => {
+      clearTimeout(id);
+    };
+  }, [headers?.dirt, setError, setHeaders, variables]);
+};
