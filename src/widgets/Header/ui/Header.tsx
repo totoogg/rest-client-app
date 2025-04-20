@@ -47,7 +47,7 @@ export const Header = ({ locale }: LanguageSelectProps) => {
   const handleSignOut = async () => {
     await signOut();
 
-    router.push('/');
+    router.refresh();
   };
 
   return (

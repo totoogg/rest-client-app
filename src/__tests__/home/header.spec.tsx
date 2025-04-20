@@ -119,7 +119,6 @@ describe('Header component', () => {
 
     await waitFor(() => {
       expect(mockSignOut).toHaveBeenCalled();
-      expect(mockPush).toHaveBeenCalledWith('/');
     });
   });
 
